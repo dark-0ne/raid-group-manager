@@ -33,19 +33,55 @@ client.connect(err => {
                 document.body.appendChild(mainContainer)
 
                 let counter = 1
-                for (player of data){
+                for (player of data) {
                     const row = document.createElement("div")
                     row.classList.add("row")
-                    
+                    row.classList.add("align-items-center")
+
                     const player_counter = document.createElement("div")
                     player_counter.classList.add("col-1")
                     player_counter.textContent = counter++
                     row.appendChild(player_counter)
 
-                    const class_icon = document.createElement("div")
-                    class_icon.classList.add("col-1")
-                    class_icon.textContent = player.character_class
-                    row.appendChild(class_icon)
+                    const class_div = document.createElement("div")
+                    class_div.classList.add("col-1")
+                    const class_icon = document.createElement("img")
+                    class_icon.setAttribute("width",40)
+                    class_icon.setAttribute("height",40)
+                    switch (player.character_class) {
+                        case "Warrior":
+                            class_icon.setAttribute("src", "media/images/01-Warrior.png")
+                            break;
+                        case "Paladin":
+                            class_icon.setAttribute("src", "media/images/02-Paladin.png")
+                            break;
+                        case "Death Knight":
+                            class_icon.setAttribute("src", "media/images/03-DeathKnight.png")
+                            break;
+                        case "Hunter":
+                            class_icon.setAttribute("src", "media/images/04-Hunter.png")
+                            break;
+                        case "Shaman":
+                            class_icon.setAttribute("src", "media/images/05-Shaman.png")
+                            break;
+                        case "Rogue":
+                            class_icon.setAttribute("src", "media/images/06-Rogue.png")
+                            break;
+                        case "Druid":
+                            class_icon.setAttribute("src", "media/images/07-Druid.png")
+                            break;
+                        case "Mage":
+                            class_icon.setAttribute("src", "media/images/08-Mage.png")
+                            break;
+                        case "Warlock":
+                            class_icon.setAttribute("src", "media/images/09-Warlock.png")
+                            break;
+                        case "Priest":
+                            class_icon.setAttribute("src", "media/images/10-Priest.png")
+                            break;
+                    }
+                    class_div.appendChild(class_icon)
+                    row.appendChild(class_div)
 
                     const discord_name = document.createElement("div")
                     discord_name.classList.add("col-3")
@@ -68,7 +104,7 @@ client.connect(err => {
                     armory_button.classList.add("btn")
                     armory_button.classList.add("btn-primary")
                     armory_button.textContent = "Armory"
-                    armory_button.setAttribute('onclick',"ipcRenderer.invoke('open-armory','"+ player.armory_link +"')")
+                    armory_button.setAttribute('onclick', "ipcRenderer.invoke('open-armory','" + player.armory_link + "')")
                     armory_div.appendChild(armory_button)
                     row.appendChild(armory_div)
 
