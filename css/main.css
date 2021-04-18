@@ -46,3 +46,43 @@
   display: none;
   text-align: center;
 }
+
+.character-row{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: 500;
+}
+
+.warrior-row{
+  color:brown;
+}
+.paladin-row{
+  color:hotpink;
+}
+.death-knight-row{
+  color:red;
+}
+.hunter-row{
+  color:green;
+}
+.shaman-row{
+  color:blue;
+}
+.rogue-row{
+  color:darkgoldenrod;
+}
+.druid-row{
+  color:darkorange;
+}
+.mage-row{
+  color:mediumturquoise;
+}
+.warlock-row{
+  color:rebeccapurple;
+}
+.priest-row{
+  color:black;
+}
+
+.player-counter{
+  color:black
+}
