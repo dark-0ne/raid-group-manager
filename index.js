@@ -5,9 +5,13 @@ const {
 } = require('electron')
 
 const fs = require("fs")
+const { ipcMain } = require('electron')
+
+var loginWindow
+var mainWindow
 
 function createMainWindow() {
-  const win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -16,7 +20,7 @@ function createMainWindow() {
     }
   })
 
-  win.loadFile('index.html')
+  mainWindow.loadFile('index.html')
 
   // Build and set menu
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
@@ -25,7 +29,7 @@ function createMainWindow() {
 }
 
 function createLoginWindow() {
-  const win = new BrowserWindow({
+  loginWindow = new BrowserWindow({
     width: 350,
     height: 225,
     webPreferences: {
@@ -34,8 +38,8 @@ function createLoginWindow() {
     }
   })
 
-  win.loadFile('login.html')
-  win.setResizable(false)
+  loginWindow.loadFile('login.html')
+  loginWindow.setResizable(false)
 
   // Build and set menu
   const loginMenu = Menu.buildFromTemplate(loginMenuTemplate);
@@ -91,7 +95,7 @@ if (process.env.NODE_ENV !== "production") {
 
 
 app.whenReady().then(() => {
-  if (!fs.existsSync("credintials")) {
+  if (!fs.existsSync("credentials")) {
     createLoginWindow()
   } else {
     createMainWindow()
@@ -108,4 +112,9 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+})
+
+ipcMain.handle('after-login', (event) => {
+  createMainWindow()
+  loginWindow.close()
 })
