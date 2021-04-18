@@ -1,0 +1,1 @@
+const Realm = require("realm");

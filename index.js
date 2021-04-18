@@ -3,24 +3,23 @@ const {
   BrowserWindow,
   Menu
 } = require('electron')
-const path = require('path')
 
 function createWindow () {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
       nodeIntegration:true,
+      contextIsolation:false,
     }
   })
 
   win.loadFile('index.html')
 
   // Build and set menu
-  const mainMenu = Menu.buildFromTemplate(mainMenuTemplace)
-  Menu.setApplicationMenu(mainMenu)
-
+  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+  // Insert menu
+  Menu.setApplicationMenu(mainMenu);
 }
 // Create Menu Template
 const mainMenuTemplate = [{
