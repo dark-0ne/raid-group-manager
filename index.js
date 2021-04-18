@@ -5,15 +5,17 @@ const {
 } = require('electron')
 
 const fs = require("fs")
-const { ipcMain } = require('electron')
+const {
+  ipcMain
+} = require('electron')
 
 var loginWindow
 var mainWindow
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1050,
+    height: 800,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -117,4 +119,24 @@ app.on('window-all-closed', () => {
 ipcMain.handle('after-login', (event) => {
   createMainWindow()
   loginWindow.close()
+})
+
+ipcMain.handle('show-login', (event) => {
+  createLoginWindow()
+  mainWindow.close()
+})
+
+ipcMain.handle('open-armory', (event, link) => {
+
+  const win = new BrowserWindow({
+    width: 1280,
+    height: 720,
+  })
+
+  win.loadURL(link)
+
+  // Build and set menu
+  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+  // Insert menu
+  Menu.setApplicationMenu(mainMenu);
 })
