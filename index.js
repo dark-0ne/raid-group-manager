@@ -1,4 +1,8 @@
-const { app, BrowserWindow, Menu} = require('electron')
+const {
+  app,
+  BrowserWindow,
+  Menu
+} = require('electron')
 const path = require('path')
 
 function createWindow () {
@@ -12,20 +16,40 @@ function createWindow () {
   })
 
   win.loadFile('index.html')
-  win.webContents.openDevTools()
 
   // Build and set menu
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplace)
   Menu.setApplicationMenu(mainMenu)
 
 }
-
 // Create Menu Template
-const mainMenuTemplace = [
-  {
-    label: "File"
-  }
-]
+const mainMenuTemplate = [{
+  label: "File",
+  submenu: [{
+    label: "Quit",
+    accelerator: process.platform == "darwin" ? "Command+Q" : "Ctrl+Q",
+    click() {
+      app.quit()
+    }
+  }]
+}]
+
+if (process.env.NODE_ENV !== "production") {
+  mainMenuTemplate.push({
+    label: "Developer Tools",
+    submenu: [{
+        role: "reload"
+      },
+      {
+        label: "Toggle DevTools",
+        accelerator: process.platform == "darwin" ? "Command+I" : "Ctrl+I",
+        click(item, focusedWindow) {
+          focusedWindow.toggleDevTools()
+        }
+      },
+    ]
+  })
+}
 
 app.whenReady().then(() => {
   createWindow()

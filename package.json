@@ -1,8 +1,8 @@
-{
-  "name": "raid-composition",
+jj{
+  "name": "raid-group-manager",
   "version": "1.0.0",
   "author": "dark0ne",
-  "description": "Electron app for managing raid composition in guilds",
+  "description": "Electron app for managing raid groups in guilds",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "bulma": "^0.9.2",
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
   },
   "config": {
     "forge": {
@@ -31,7 +31,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "raid_composition"
+            "name": "Raid Group Manager"
           }
         },
         {
