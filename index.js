@@ -4,13 +4,15 @@ const {
   Menu
 } = require('electron')
 
-function createWindow () {
+const fs = require("fs")
+
+function createMainWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration:true,
-      contextIsolation:false,
+      nodeIntegration: true,
+      contextIsolation: false,
     }
   })
 
@@ -20,6 +22,25 @@ function createWindow () {
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
   // Insert menu
   Menu.setApplicationMenu(mainMenu);
+}
+
+function createLoginWindow() {
+  const win = new BrowserWindow({
+    width: 350,
+    height: 225,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    }
+  })
+
+  win.loadFile('login.html')
+  win.setResizable(false)
+
+  // Build and set menu
+  const loginMenu = Menu.buildFromTemplate(loginMenuTemplate);
+  // Insert menu
+  Menu.setApplicationMenu(loginMenu);
 }
 // Create Menu Template
 const mainMenuTemplate = [{
@@ -31,6 +52,10 @@ const mainMenuTemplate = [{
       app.quit()
     }
   }]
+}]
+
+const loginMenuTemplate = [{
+  label: ""
 }]
 
 if (process.env.NODE_ENV !== "production") {
@@ -48,10 +73,29 @@ if (process.env.NODE_ENV !== "production") {
       },
     ]
   })
+  loginMenuTemplate.push({
+    label: "Developer Tools",
+    submenu: [{
+        role: "reload"
+      },
+      {
+        label: "Toggle DevTools",
+        accelerator: process.platform == "darwin" ? "Command+I" : "Ctrl+I",
+        click(item, focusedWindow) {
+          focusedWindow.toggleDevTools()
+        }
+      },
+    ]
+  })
 }
 
+
 app.whenReady().then(() => {
-  createWindow()
+  if (!fs.existsSync("credintials")) {
+    createLoginWindow()
+  } else {
+    createMainWindow()
+  }
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
