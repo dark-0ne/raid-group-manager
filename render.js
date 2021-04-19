@@ -126,14 +126,14 @@ client.connect(err => {
                         altBtn.setAttribute("aria-controls", "#" + player.character_name + "-alts-collapse")
 
                         const altsCollapse = document.createElement("div")
-                        altsCollapse.classList.add("collapse", "container", "border", "rounded", "mx-1")
+                        altsCollapse.classList.add("collapse", "container", "border", "rounded", "mx-1", "bg-light")
                         altsCollapse.id = player.character_name + "-alts-collapse"
 
 
                         for (alt of player.alts) {
 
                             const altRow = document.createElement("div")
-                            altRow.classList.add("row", "align-items-center", "justify-items-end", "border", "rounded", "bg-light", "py-1", "my-1", "mx-1", "alt-row")
+                            altRow.classList.add("row", "align-items-center","border-bottom","border-top", "justify-items-end", "py-1", "my-1", "mx-1", "alt-row")
 
                             const alt_counter = document.createElement("div")
                             alt_counter.classList.add("col-1")

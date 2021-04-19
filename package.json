@@ -31,7 +31,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "Raid Group Manager"
+            "name": "RaidGroupManager"
           }
         },
         {

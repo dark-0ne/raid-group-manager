@@ -33,7 +33,7 @@ function createMainWindow() {
 function createLoginWindow() {
   loginWindow = new BrowserWindow({
     width: 350,
-    height: 225,
+    height: 250,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

@@ -16,13 +16,22 @@
     <div class="container" id="main-container">
         <form id="login-form">
             <div class="mb-3">
-                <label for="password-input" class="form-label">Please enter password:</label>
-                <input type="password" class="form-control" id="password-input" aria-describedby="loginMsg">
+                <label for="password-input" class="form-label">Enter password:</label>
+                <div class="row justify-content-center my-1">
+                    <div class="col-10">
+                        <input type="password" class="form-control" id="password-input" aria-describedby="loginMsg">
+                    </div>
+                    <div class="col-2">
+                        <div class="spinner-border text-primary d-none" role="status" id="loader">
+                            <span cLass="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
                 <div id="login-message" class="form-text"></div>
             </div>
-            <div class="row justify-content-center">
+            <div class="row justify-content-center my-1">
                 <div class="col-4">
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-success">Login</button>
                 </div>
             </div>
         </form>
