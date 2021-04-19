@@ -17,7 +17,7 @@ client.connect(err => {
         ipcRenderer.invoke('show-login')
     } else {
         const player_col = client.db("raid-group-manager").collection("players");
-        player_col.find({}).toArray((err, data) => {
+        player_col.find({}).collation({'locale':'en'}).sort({"discord_name":1}).toArray((err, data) => {
             if (err) {
                 console.log(err)
             } else {
