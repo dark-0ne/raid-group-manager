@@ -1,7 +1,10 @@
 const MongoClient = require('mongodb').MongoClient;
 const fs = require("fs")
 
-const { showPlayers } = require("./scripts/showPlayers")
+const {
+    showAllPlayers,
+    showSearchPlayers
+} = require("./scripts/showPlayers")
 
 const {
     ipcRenderer
@@ -18,6 +21,33 @@ const client = new MongoClient(uri, {
 function handleSearch(e) {
     const searchLoader = document.getElementById("search-loader")
     searchLoader.classList.remove("d-none")
+
+    const searchString = document.getElementById("search-input").value
+    if (searchString === "") showAllPlayers()
+    else {
+        const regexString = new RegExp(".*" + searchString + ".*", "i")
+
+        const character_col = client.db("raid-group-manager").collection("characters");
+        character_col.find({
+            "$or": [{
+                "discord_name": regexString
+            }, {
+                "character_name": regexString
+            }]
+        }).collation({
+            'locale': 'en'
+        }).sort({
+            "discord_name": 1
+        }).toArray((err, data) => {
+            if (err) {
+                console.log(err)
+            } else {
+                showSearchPlayers(data)
+                searchLoader.classList.add("d-none")
+
+            }
+        })
+    }
 }
 
 client.connect(err => {
@@ -37,10 +67,8 @@ client.connect(err => {
                 // Remove loader spinner
                 const loader = document.getElementById("loader")
                 loader.remove();
-                
-                showPlayers(data);
 
-                client.close();
+                showAllPlayers(data);
             }
         })
     }

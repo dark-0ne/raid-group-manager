@@ -1,6 +1,7 @@
-function showPlayers(players) {
+function showAllPlayers(players) {
     // Create grid
     const mainContainer = document.createElement("div")
+    mainContainer.id = "main-container"
     mainContainer.classList.add("container")
     mainContainer.classList.add("animate-bottom")
     document.body.appendChild(mainContainer)
@@ -8,7 +9,8 @@ function showPlayers(players) {
     //Show navbar
     const navbar = document.getElementById("search-navbar")
     navbar.classList.remove("d-none")
-    mainContainer.appendChild(navbar)
+
+    if (players.length === 0) return
 
     let counter = 1
     for (player of players) {
@@ -217,5 +219,117 @@ function showPlayers(players) {
     }
 }
 
+function showSearchPlayers(players) {
 
-exports.showPlayers = showPlayers
+    document.getElementById("main-container").remove()
+
+    // Create grid
+    const mainContainer = document.createElement("div")
+    mainContainer.id = "main-container"
+    mainContainer.classList.add("container")
+    mainContainer.classList.add("animate-bottom")
+    document.body.appendChild(mainContainer)
+
+    if (players.length === 0) return
+
+    let counter = 1
+    for (player of players) {
+        const row = document.createElement("div")
+        row.classList.add("row", "align-items-center", "border", "rounded", "bg-light", "py-1", "my-1", "character-row")
+        mainContainer.appendChild(row)
+
+        const player_counter = document.createElement("div")
+        player_counter.classList.add("col-1")
+        player_counter.textContent = counter++
+        player_counter.classList.add("player-counter")
+        row.appendChild(player_counter)
+
+        const class_div = document.createElement("div")
+        class_div.classList.add("col-1")
+        const class_icon = document.createElement("img")
+        class_icon.setAttribute("width", 40)
+        class_icon.setAttribute("height", 40)
+        switch (player.character_class) {
+            case "Warrior":
+                class_icon.setAttribute("src", "media/images/01-Warrior.png")
+                row.classList.add("warrior-row")
+                break;
+            case "Paladin":
+                class_icon.setAttribute("src", "media/images/02-Paladin.png")
+                row.classList.add("paladin-row")
+                break;
+            case "Death Knight":
+                class_icon.setAttribute("src", "media/images/03-DeathKnight.png")
+                row.classList.add("death-knight-row")
+                break;
+            case "Hunter":
+                class_icon.setAttribute("src", "media/images/04-Hunter.png")
+                row.classList.add("hunter-row")
+                break;
+            case "Shaman":
+                class_icon.setAttribute("src", "media/images/05-Shaman.png")
+                row.classList.add("shaman-row")
+                break;
+            case "Rogue":
+                class_icon.setAttribute("src", "media/images/06-Rogue.png")
+                row.classList.add("rogue-row")
+                break;
+            case "Druid":
+                class_icon.setAttribute("src", "media/images/07-Druid.png")
+                row.classList.add("druid-row")
+                break;
+            case "Mage":
+                class_icon.setAttribute("src", "media/images/08-Mage.png")
+                row.classList.add("mage-row")
+                break;
+            case "Warlock":
+                class_icon.setAttribute("src", "media/images/09-Warlock.png")
+                row.classList.add("warlock-row")
+                break;
+            case "Priest":
+                class_icon.setAttribute("src", "media/images/10-Priest.png")
+                row.classList.add("priest-row")
+                break;
+        }
+        class_div.appendChild(class_icon)
+        row.appendChild(class_div)
+
+        const discord_name = document.createElement("div")
+        discord_name.classList.add("col-3")
+        discord_name.textContent = player.discord_name
+        row.appendChild(discord_name)
+
+        player.character_name = player.character_name.replace(/\W/g, "")
+        const character_name = document.createElement("div")
+        character_name.classList.add("col-2")
+        character_name.textContent = player.character_name
+        row.appendChild(character_name)
+
+        const info = document.createElement("div")
+        info.classList.add("col-3")
+        info.textContent = player.info
+        row.appendChild(info)
+
+        const altStatusDiv = document.createElement("div")
+        altStatusDiv.classList.add("col-1")
+        altStatusDiv.classList.add("btn","btn-sm","pill-rounded","px-3")
+        if (player.main === "Main") altStatusDiv.classList.add("btn-success")
+        else altStatusDiv.classList.add("btn-warning")
+        altStatusDiv.textContent = player.main 
+        row.appendChild(altStatusDiv)
+
+        const armory_div = document.createElement("div")
+        armory_div.classList.add("col-1")
+        const armory_button = document.createElement("button")
+        armory_button.classList.add("btn", "btn-primary", "btn-sm")
+        armory_button.textContent = "Armory"
+        armory_button.setAttribute('onclick', "ipcRenderer.invoke('open-armory','" + player.armory_link + "')")
+        armory_div.appendChild(armory_button)
+        row.appendChild(armory_div)
+
+    }
+}
+
+
+exports.showAllPlayers = showAllPlayers
+exports.showSearchPlayers = showSearchPlayers
