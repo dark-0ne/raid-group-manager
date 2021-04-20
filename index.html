@@ -15,13 +15,25 @@
         window.$ = window.jQuery = require('jquery');
     </script>
     <script src="scripts/bootstrap/bootstrap.bundle.min.js"></script>
-    <div class="row sticky-top d-none bg-white rounded pt-2 pb-1 mx-4" id="search-navbar">
+    <div class="border-bottom sticky-top d-none rounded py-1 my-1 px-4 mx-1" id="search-navbar">
         <div class="input-group py-1">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search" id='search-input' oninput="handleSearch()">
+            <input class="form-control" type="text" placeholder="Search" aria-label="Search" id='search-input'
+                oninput="handleSearch()">
             <div class="input-group-append">
                 <div class="spinner-border text-primary d-none mx-3" role="status" id="search-loader">
                     <span cLass="visually-hidden">Loading...</span>
                 </div>
+            </div>
+        </div>
+        <a class="toggle" role="button" data-bs-toggle="collapse" data-bs-target="#adv-search-collapse"
+            aria-expanded="false" aria-controls="adv-search-collapse">
+            Advanced search >
+        </a>
+        <div class="collapse" id="adv-search-collapse">
+            <div class="card card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                Nihil
+                anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
             </div>
         </div>
     </div>

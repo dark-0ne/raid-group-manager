@@ -23,8 +23,20 @@ function handleSearch(e) {
     searchLoader.classList.remove("d-none")
 
     const searchString = document.getElementById("search-input").value
-    if (searchString === "") showAllPlayers()
-    else {
+    if (searchString === "") {
+        const player_col = client.db("raid-group-manager").collection("players");
+        player_col.find({}).collation({
+            'locale': 'en'
+        }).sort({
+            "discord_name": 1
+        }).toArray((err, data) => {
+            if (err) {
+                console.log(err)
+            } else {
+                showAllPlayers(data);
+            }
+        })
+    } else {
         const regexString = new RegExp(".*" + searchString + ".*", "i")
 
         const character_col = client.db("raid-group-manager").collection("characters");
@@ -43,11 +55,10 @@ function handleSearch(e) {
                 console.log(err)
             } else {
                 showSearchPlayers(data)
-                searchLoader.classList.add("d-none")
-
             }
         })
     }
+    searchLoader.classList.add("d-none")
 }
 
 client.connect(err => {

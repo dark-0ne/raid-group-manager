@@ -1,4 +1,9 @@
 function showAllPlayers(players) {
+
+    // Remove previous container if exists
+    const prevContainer = document.getElementById("main-container")
+    if (prevContainer) prevContainer.remove()
+
     // Create grid
     const mainContainer = document.createElement("div")
     mainContainer.id = "main-container"
@@ -221,7 +226,8 @@ function showAllPlayers(players) {
 
 function showSearchPlayers(players) {
 
-    document.getElementById("main-container").remove()
+    const prevContainer = document.getElementById("main-container")
+    if (prevContainer) prevContainer.remove()
 
     // Create grid
     const mainContainer = document.createElement("div")
