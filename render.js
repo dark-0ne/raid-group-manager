@@ -22,8 +22,82 @@ function handleSearch(e) {
     const searchLoader = document.getElementById("search-loader")
     searchLoader.classList.remove("d-none")
 
+    let classInputString = ""
+    let classQuery = []
+    if (document.getElementById("paladin-checkbox").checked) {
+        classInputString += "Paladin"
+        classQuery.push({
+            "character_class": "Paladin"
+        })
+    }
+    if (document.getElementById("warrior-checkbox").checked) {
+        if (classInputString !== "") classInputString += " , "
+        classInputString += "Warrior"
+        classQuery.push({
+            "character_class": "Warrior"
+        })
+    }
+    if (document.getElementById("deathknight-checkbox").checked) {
+        if (classInputString !== "") classInputString += " , "
+        classInputString += "Death Knight"
+        classQuery.push({
+            "character_class": "Death Knight"
+        })
+    }
+    if (document.getElementById("hunter-checkbox").checked) {
+        if (classInputString !== "") classInputString += " , "
+        classInputString += "Hunter"
+        classQuery.push({
+            "character_class": "Hunter"
+        })
+    }
+    if (document.getElementById("shaman-checkbox").checked) {
+        if (classInputString !== "") classInputString += " , "
+        classInputString += "Shaman"
+        classQuery.push({
+            "character_class": "Shaman"
+        })
+    }
+    if (document.getElementById("rogue-checkbox").checked) {
+        if (classInputString !== "") classInputString += " , "
+        classInputString += "Rogue"
+        classQuery.push({
+            "character_class": "Rogue"
+        })
+    }
+    if (document.getElementById("druid-checkbox").checked) {
+        if (classInputString !== "") classInputString += " , "
+        classInputString += "Druid"
+        classQuery.push({
+            "character_class": "Druid"
+        })
+    }
+    if (document.getElementById("mage-checkbox").checked) {
+        if (classInputString !== "") classInputString += " , "
+        classInputString += "Mage"
+        classQuery.push({
+            "character_class": "Mage"
+        })
+    }
+    if (document.getElementById("warlock-checkbox").checked) {
+        if (classInputString !== "") classInputString += " , "
+        classInputString += "Warlock"
+        classQuery.push({
+            "character_class": "Warlock"
+        })
+    }
+    if (document.getElementById("priest-checkbox").checked) {
+        if (classInputString !== "") classInputString += " , "
+        classInputString += "Priest"
+        classQuery.push({
+            "character_class": "Priest"
+        })
+    }
+
+    document.getElementById("class-input").value = classInputString
+
     const searchString = document.getElementById("search-input").value
-    if (searchString === "") {
+    if (searchString === "" && classQuery.length === 0) {
         const player_col = client.db("raid-group-manager").collection("players");
         player_col.find({}).collation({
             'locale': 'en'
@@ -41,10 +115,14 @@ function handleSearch(e) {
 
         const character_col = client.db("raid-group-manager").collection("characters");
         character_col.find({
-            "$or": [{
-                "discord_name": regexString
+            "$and": [{
+                "$or": [{
+                    "discord_name": regexString
+                }, {
+                    "character_name": regexString
+                }]
             }, {
-                "character_name": regexString
+                "$or": classQuery
             }]
         }).collation({
             'locale': 'en'

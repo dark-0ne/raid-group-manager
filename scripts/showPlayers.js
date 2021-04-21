@@ -20,7 +20,7 @@ function showAllPlayers(players) {
     let counter = 1
     for (player of players) {
         const row = document.createElement("div")
-        row.classList.add("row", "align-items-center", "border", "rounded", "bg-light", "py-1", "my-1", "character-row")
+        row.classList.add("row", "align-items-center", "border", "rounded", "bg-light", "py-1", "my-1", "character-row", "justify-content-center")
         mainContainer.appendChild(row)
 
         const player_counter = document.createElement("div")
@@ -79,19 +79,44 @@ function showAllPlayers(players) {
         class_div.appendChild(class_icon)
         row.appendChild(class_div)
 
+        const guildRankDiv = document.createElement("div")
+        guildRankDiv.classList.add("col-1")
+        const guildRankPill = document.createElement("span")
+        guildRankPill.classList.add("badge")
+        switch (player.guild_rank) {
+            case "Raid Leader":
+                guildRankPill.classList.add("badge-raid-leader")
+                break;
+            case "Core Raider":
+                guildRankPill.classList.add("badge-core-raider")
+                break;
+            case "Raider":
+                guildRankPill.classList.add("badge-raider")
+                break;
+            case "Initiate":
+                guildRankPill.classList.add("badge-initiate")
+                break;
+        }
+        guildRankPill.textContent = player.guild_rank
+        guildRankDiv.appendChild(guildRankPill)
+        row.appendChild(guildRankDiv)
+
         const discord_name = document.createElement("div")
-        discord_name.classList.add("col-3")
+        discord_name.classList.add("col-2")
+        discord_name.style.textAlign = "center";
         discord_name.textContent = player.discord_name
         row.appendChild(discord_name)
 
         player.character_name = player.character_name.replace(/\W/g, "")
         const character_name = document.createElement("div")
         character_name.classList.add("col-2")
+        character_name.style.textAlign = "center";
         character_name.textContent = player.character_name
         row.appendChild(character_name)
 
         const info = document.createElement("div")
         info.classList.add("col-3")
+        info.style.textAlign = "center";
         info.textContent = player.info
         row.appendChild(info)
 
@@ -300,28 +325,53 @@ function showSearchPlayers(players) {
         class_div.appendChild(class_icon)
         row.appendChild(class_div)
 
+        const guildRankDiv = document.createElement("div")
+        guildRankDiv.classList.add("col-1")
+        const guildRankPill = document.createElement("span")
+        guildRankPill.classList.add("badge")
+        switch (player.guild_rank) {
+            case "Raid Leader":
+                guildRankPill.classList.add("badge-raid-leader")
+                break;
+            case "Core Raider":
+                guildRankPill.classList.add("badge-core-raider")
+                break;
+            case "Raider":
+                guildRankPill.classList.add("badge-raider")
+                break;
+            case "Initiate":
+                guildRankPill.classList.add("badge-initiate")
+                break;
+        }
+        guildRankPill.textContent = player.guild_rank
+        guildRankDiv.appendChild(guildRankPill)
+        row.appendChild(guildRankDiv)
+
         const discord_name = document.createElement("div")
-        discord_name.classList.add("col-3")
+        discord_name.classList.add("col-2")
+        discord_name.style.textAlign = "center"
         discord_name.textContent = player.discord_name
         row.appendChild(discord_name)
 
         player.character_name = player.character_name.replace(/\W/g, "")
         const character_name = document.createElement("div")
         character_name.classList.add("col-2")
+        character_name.style.textAlign = "center"
         character_name.textContent = player.character_name
         row.appendChild(character_name)
 
         const info = document.createElement("div")
         info.classList.add("col-3")
+        info.style.textAlign = "center"
         info.textContent = player.info
         row.appendChild(info)
 
         const altStatusDiv = document.createElement("div")
         altStatusDiv.classList.add("col-1")
-        altStatusDiv.classList.add("btn","btn-sm","pill-rounded","px-3")
+        altStatusDiv.classList.add("btn", "btn-sm", "pill-rounded", "px-3")
         if (player.main === "Main") altStatusDiv.classList.add("btn-success")
         else altStatusDiv.classList.add("btn-warning")
-        altStatusDiv.textContent = player.main 
+        altStatusDiv.textContent = player.main
         row.appendChild(altStatusDiv)
 
         const armory_div = document.createElement("div")

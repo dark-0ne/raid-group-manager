@@ -15,7 +15,7 @@ var mainWindow
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
-    width: 1220,
+    width: 1280,
     height: 900,
     webPreferences: {
       nodeIntegration: true,
@@ -24,6 +24,7 @@ function createMainWindow() {
   })
 
   mainWindow.loadFile('index.html')
+  mainWindow.setResizable(true)
 
   // Build and set menu
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);

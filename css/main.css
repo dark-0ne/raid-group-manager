@@ -141,3 +141,31 @@ a.toggle:active {
 #class-dropdown {
     width: 240px !important;
 }
+
+.badge-raid-leader{
+  border-radius: 20px;
+  width: 90px;
+  color: white;
+  background-color: black;
+}
+
+.badge-raider{
+  border-radius: 20px;
+  width: 90px;
+  color: black;
+  background-color: #115e14;
+}
+
+.badge-core-raider{
+  border-radius: 20px;
+  width: 90px;
+  color: black;
+  background-color: #75070e;
+}
+
+.badge-initiate{
+  border-radius: 20px;
+  width: 90px;
+  color: black;
+  background-color: #9fccd1;
+}
