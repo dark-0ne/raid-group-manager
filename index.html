@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <script defer src="render.js"></script>
+    <script>
+        window.$ = window.jQuery = require("jquery");
+    </script>
 </head>
 
 <body style="background: white;">
-    <script>
-        window.$ = window.jQuery = require('jquery');
-    </script>
     <script src="scripts/bootstrap/bootstrap.bundle.min.js"></script>
     <div class="border-bottom sticky-top d-none rounded py-1 my-1 px-4 mx-1" id="search-navbar">
         <div class="input-group py-1">
@@ -31,9 +31,142 @@
         </a>
         <div class="collapse" id="adv-search-collapse">
             <div class="card card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                Nihil
-                anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="class-label">Classes:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="All classes" aria-describedby="class-label"
+                        readonly id="class-input">
+                    <div class="input-group-append">
+                        <div class="dropdown show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </a>
+
+                            <div class="dropdown-menu container" aria-labelledby="dropdownMenuLink" id="class-dropdown">
+
+                                <div class="row justify-content-start">
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="paladin-checkbox">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="paladin-checkbox" style="color: hotpink;">
+                                            Paladin
+                                        </label>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="warrior-checkbox">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="warrior-checkbox" style="color: brown;">
+                                            Warrior
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-start">
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="deathknight-checkbox">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="deathknight-checkbox" style="color: red;">
+                                           DK 
+                                        </label>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="hunter-checkbox">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="hunter-checkbox" style="color: green;">
+                                            Hunter
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-start">
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="shaman-checkbox">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="shaman-checkbox" style="color: blue;">
+                                            Shaman
+                                        </label>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="rogue-checkbox">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="rogue-checkbox"
+                                            style="color: darkgoldenrod;">
+                                            Rogue
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-start">
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="druid-checkbox">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="druid-checkbox" style="color: darkorange;">
+                                            Druid
+                                        </label>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="mage-checkbox">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="mage-checkbox"
+                                            style="color: mediumturquoise;">
+                                            Mage
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-start">
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="warlock-checkbox">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="warlock-checkbox"
+                                            style="color: rebeccapurple;">
+                                            Warlock
+                                        </label>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="priest-checkbox">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="priest-checkbox" style="color: black;">
+                                            Priest
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

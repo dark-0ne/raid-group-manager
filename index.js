@@ -12,6 +12,7 @@ const {
 var loginWindow
 var mainWindow
 
+
 function createMainWindow() {
   mainWindow = new BrowserWindow({
     width: 1220,

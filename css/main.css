@@ -137,3 +137,7 @@ a.toggle:active {
 #search-navbar{
   background-color: #f2f3f7;
 }
+
+#class-dropdown {
+    width: 240px !important;
+}
