@@ -142,6 +142,10 @@ a.toggle:active {
     width: 240px !important;
 }
 
+#rank-dropdown {
+    width: 300px !important;
+}
+
 .badge-raid-leader{
   border-radius: 20px;
   width: 90px;

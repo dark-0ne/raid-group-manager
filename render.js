@@ -96,8 +96,46 @@ function handleSearch(e) {
 
     document.getElementById("class-input").value = classInputString
 
+    let rankInputString = ""
+    let rankQuery = []
+
+    if (document.getElementById("raid-leader-checkbox").checked) {
+        rankInputString += "Raid Leader"
+        rankQuery.push({
+            "guild_rank": "Raid Leader"
+        })
+    }
+
+    if (document.getElementById("core-raider-checkbox").checked) {
+        if (rankInputString !== "") rankInputString += " , "
+        rankInputString += "Core Raider"
+        rankQuery.push({
+            "guild_rank": "Core Raider"
+        })
+    }
+
+    if (document.getElementById("raider-checkbox").checked) {
+        if (rankInputString !== "") rankInputString += " , "
+        rankInputString += "Raider"
+        rankQuery.push({
+            "guild_rank": "Raider"
+        })
+    }
+
+    if (document.getElementById("initiate-checkbox").checked) {
+        if (rankInputString !== "") rankInputString += " , "
+        rankInputString += "Initiate"
+        rankQuery.push({
+            "guild_rank": "Initiate"
+        })
+    }
+
+    document.getElementById("rank-input").value = rankInputString
+
     const searchString = document.getElementById("search-input").value
-    if (searchString === "" && classQuery.length === 0) {
+    const regexString = new RegExp(".*" + searchString + ".*", "i")
+
+    if (searchString === "" && classQuery.length === 0 && rankQuery.length === 0) {
         const player_col = client.db("raid-group-manager").collection("players");
         player_col.find({}).collation({
             'locale': 'en'
@@ -111,20 +149,30 @@ function handleSearch(e) {
             }
         })
     } else {
-        const regexString = new RegExp(".*" + searchString + ".*", "i")
-
-        const character_col = client.db("raid-group-manager").collection("characters");
-        character_col.find({
+        let query = {
             "$and": [{
                 "$or": [{
                     "discord_name": regexString
                 }, {
                     "character_name": regexString
                 }]
-            }, {
-                "$or": classQuery
             }]
-        }).collation({
+        };
+
+        if (classQuery.length !== 0) {
+            query["$and"].push({
+                "$or": classQuery
+            })
+        }
+
+        if (rankQuery.length !== 0) {
+            query["$and"].push({
+                "$or": rankQuery
+            })
+        }
+
+        const character_col = client.db("raid-group-manager").collection("characters");
+        character_col.find(query).collation({
             'locale': 'en'
         }).sort({
             "discord_name": 1

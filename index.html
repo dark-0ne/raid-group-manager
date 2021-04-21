@@ -39,11 +39,12 @@
                         disabled id="class-input">
                     <div class="input-group-append">
                         <div class="dropdown show">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="class-dropdown-link"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             </a>
 
-                            <div class="dropdown-menu container" aria-labelledby="dropdownMenuLink" id="class-dropdown">
+                            <div class="dropdown-menu container" aria-labelledby="class-dropdown-link"
+                                id="class-dropdown">
 
                                 <div class="row justify-content-start">
                                     <div class="col-1 mx-1">
@@ -159,6 +160,68 @@
                                     <div class="col-3">
                                         <label class="form-check-label" for="priest-checkbox" style="color: black;">
                                             Priest
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group my-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="rank-label">Guild Ranks:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="All ranks" aria-describedby="rank-label"
+                        disabled id="rank-input">
+                    <div class="input-group-append">
+                        <div class="dropdown show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="rank-dropdown-link"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </a>
+
+                            <div class="dropdown-menu container" aria-labelledby="rank-dropdown-link"
+                                id="rank-dropdown">
+
+                                <div class="row justify-content-start">
+                                    <div class="col-1 ms-1">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="raid-leader-checkbox" onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-check-label" for="raid-leader-checkbox"
+                                            style="color: black;">
+                                            Raid Leader
+                                        </label>
+                                    </div>
+                                    <div class="col-1 ms-1">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="core-raider-checkbox" onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-check-label" for="core-raider-checkbox"
+                                            style="color: #75070e;">
+                                            Core Raider
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-start">
+                                    <div class="col-1 ms-1">
+                                        <input class="form-check-input" type="checkbox" value="" id="raider-checkbox"
+                                            onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-check-label" for="raider-checkbox" style="color: #115e14;">
+                                            Raider
+                                        </label>
+                                    </div>
+                                    <div class="col-1 ms-1">
+                                        <input class="form-check-input" type="checkbox" value="" id="initiate-checkbox"
+                                            onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-check-label" for="initiate-checkbox" style="color: #4e949c;">
+                                            Initiate
                                         </label>
                                     </div>
                                 </div>
