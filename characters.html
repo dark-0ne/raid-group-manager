@@ -6,8 +6,8 @@
     <title>Raid Manager</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="css/raiders.css">
-    <script defer src="raiders.js"></script>
+    <link rel="stylesheet" href="css/characters.css">
+    <script defer src="characters.js"></script>
     <script>
         window.$ = window.jQuery = require("jquery");
     </script>
@@ -15,7 +15,7 @@
 </head>
 
 <body class="bg-light">
-    <div class="border-bottom sticky-top d-none rounded py-1 mb-1 px-4" id="search-navbar">
+    <div class="border-bottom sticky-top d-none rounded pt-3 pb-1 px-4" id="search-navbar">
         <div class="cover-container d-flex w-100 h-100 mx-auto flex-column mb-0 pb-0">
             <header>
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -26,6 +26,7 @@
                 </nav>
             </header>
         </div>
+        <hr />
         <div class="input-group py-1">
             <input class="form-control" type="text" placeholder="Search" aria-label="Search" id='search-input'
                 oninput="handleSearch()">
@@ -37,7 +38,7 @@
         </div>
         <a class="toggle" role="button" data-bs-toggle="collapse" data-bs-target="#adv-search-collapse"
             aria-expanded="false" aria-controls="adv-search-collapse">
-            Advanced search >
+            Advanced Search >
         </a>
         <div class="collapse" id="adv-search-collapse">
             <div class="card card-body" style="background-color: #f2f3f7;">

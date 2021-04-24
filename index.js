@@ -17,6 +17,7 @@ function createMainWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 900,
+    frame:false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -24,7 +25,7 @@ function createMainWindow() {
   })
 
   mainWindow.loadFile('index.html')
-  mainWindow.setResizable(true)
+  mainWindow.setResizable(false)
 
   // Build and set menu
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
@@ -39,7 +40,7 @@ function createLoginWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-    }
+    },
   })
 
   loginWindow.loadFile('login.html')
@@ -144,5 +145,9 @@ ipcMain.handle('open-armory', (event, link) => {
 })
 
 ipcMain.handle('main-load-characters', (event) => {
-  mainWindow.loadFile("raiders.html")
+  mainWindow.loadFile("characters.html")
+})
+
+ipcMain.handle('exit-app', (event) => {
+  app.quit()
 })

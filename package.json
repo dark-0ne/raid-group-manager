@@ -1,6 +1,6 @@
 {
   "name": "raid-group-manager",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "author": "dark0ne",
   "description": "Electron app for managing raid groups in guilds",
   "main": "index.js",

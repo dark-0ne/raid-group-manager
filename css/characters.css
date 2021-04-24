@@ -1,3 +1,9 @@
+body {
+  -webkit-app-region: no-drag;
+  text-shadow: 0 .05rem .1rem rgba(180, 180, 180, .5);
+  box-shadow: inset 0 0 5rem rgba(180, 180, 180, .5);
+}
+
 #loader {
   position: absolute;
   left: 50%;
@@ -136,7 +142,13 @@ a.toggle:active {
 
 #search-navbar{
   background-color: #f2f3f7;
+  -webkit-app-region: drag;
 }
+
+button, a, input {
+  -webkit-app-region: no-drag;
+}
+
 
 #class-dropdown {
     width: 240px !important;
@@ -172,9 +184,4 @@ a.toggle:active {
   width: 90px;
   color: black;
   background-color: #9fccd1;
-}
-
-body {
-  text-shadow: 0 .05rem .1rem rgba(180, 180, 180, .5);
-  box-shadow: inset 0 0 5rem rgba(180, 180, 180, .5);
 }
