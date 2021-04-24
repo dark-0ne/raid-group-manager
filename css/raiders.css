@@ -156,14 +156,14 @@ a.toggle:active {
 .badge-raider{
   border-radius: 20px;
   width: 90px;
-  color: black;
+  color: white;
   background-color: #115e14;
 }
 
 .badge-core-raider{
   border-radius: 20px;
   width: 90px;
-  color: black;
+  color: white;
   background-color: #75070e;
 }
 
@@ -172,4 +172,9 @@ a.toggle:active {
   width: 90px;
   color: black;
   background-color: #9fccd1;
+}
+
+body {
+  text-shadow: 0 .05rem .1rem rgba(180, 180, 180, .5);
+  box-shadow: inset 0 0 5rem rgba(180, 180, 180, .5);
 }

@@ -142,3 +142,7 @@ ipcMain.handle('open-armory', (event, link) => {
   // Insert menu
   Menu.setApplicationMenu(mainMenu);
 })
+
+ipcMain.handle('main-load-characters', (event) => {
+  mainWindow.loadFile("raiders.html")
+})

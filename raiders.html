@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Raid Manager</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/raiders.css">
+    <script defer src="raiders.js"></script>
+    <script>
+        window.$ = window.jQuery = require("jquery");
+    </script>
+    <script src="scripts/bootstrap/bootstrap.bundle.min.js"></script>
+</head>
+
+<body class="bg-light">
+    <div class="border-bottom sticky-top d-none rounded py-1 mb-1 px-4" id="search-navbar">
+        <div class="cover-container d-flex w-100 h-100 mx-auto flex-column mb-0 pb-0">
+            <header>
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Characters</li>
+                    </ol>
+                </nav>
+            </header>
+        </div>
+        <div class="input-group py-1">
+            <input class="form-control" type="text" placeholder="Search" aria-label="Search" id='search-input'
+                oninput="handleSearch()">
+            <div class="input-group-append">
+                <div class="spinner-border text-primary d-none mx-3" role="status" id="search-loader">
+                    <span cLass="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <a class="toggle" role="button" data-bs-toggle="collapse" data-bs-target="#adv-search-collapse"
+            aria-expanded="false" aria-controls="adv-search-collapse">
+            Advanced search >
+        </a>
+        <div class="collapse" id="adv-search-collapse">
+            <div class="card card-body" style="background-color: #f2f3f7;">
+                <div class="input-group my-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="class-label">Classes:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="All classes" aria-describedby="class-label"
+                        disabled id="class-input">
+                    <div class="input-group-append">
+                        <div class="dropdown show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="class-dropdown-link"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </a>
+
+                            <div class="dropdown-menu container" aria-labelledby="class-dropdown-link"
+                                id="class-dropdown">
+
+                                <div class="row justify-content-start">
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value="" id="paladin-checkbox"
+                                            onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="paladin-checkbox" style="color: hotpink;">
+                                            Paladin
+                                        </label>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value="" id="warrior-checkbox"
+                                            onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="warrior-checkbox" style="color: brown;">
+                                            Warrior
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-start">
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="deathknight-checkbox" onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="deathknight-checkbox" style="color: red;">
+                                            DK
+                                        </label>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value="" id="hunter-checkbox"
+                                            onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="hunter-checkbox" style="color: green;">
+                                            Hunter
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-start">
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value="" id="shaman-checkbox"
+                                            onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="shaman-checkbox" style="color: blue;">
+                                            Shaman
+                                        </label>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value="" id="rogue-checkbox"
+                                            onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="rogue-checkbox"
+                                            style="color: darkgoldenrod;">
+                                            Rogue
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-start">
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value="" id="druid-checkbox"
+                                            onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="druid-checkbox" style="color: darkorange;">
+                                            Druid
+                                        </label>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value="" id="mage-checkbox"
+                                            onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="mage-checkbox"
+                                            style="color: mediumturquoise;">
+                                            Mage
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-start">
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value="" id="warlock-checkbox"
+                                            onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="warlock-checkbox"
+                                            style="color: rebeccapurple;">
+                                            Warlock
+                                        </label>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-1 mx-1">
+                                        <input class="form-check-input" type="checkbox" value="" id="priest-checkbox"
+                                            onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="form-check-label" for="priest-checkbox" style="color: black;">
+                                            Priest
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group my-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="rank-label">Guild Ranks:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="All ranks" aria-describedby="rank-label"
+                        disabled id="rank-input">
+                    <div class="input-group-append">
+                        <div class="dropdown show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="rank-dropdown-link"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </a>
+
+                            <div class="dropdown-menu container" aria-labelledby="rank-dropdown-link"
+                                id="rank-dropdown">
+
+                                <div class="row justify-content-start">
+                                    <div class="col-1 ms-1">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="raid-leader-checkbox" onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-check-label" for="raid-leader-checkbox"
+                                            style="color: black;">
+                                            Raid Leader
+                                        </label>
+                                    </div>
+                                    <div class="col-1 ms-1">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="core-raider-checkbox" onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-check-label" for="core-raider-checkbox"
+                                            style="color: #75070e;">
+                                            Core Raider
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-start">
+                                    <div class="col-1 ms-1">
+                                        <input class="form-check-input" type="checkbox" value="" id="raider-checkbox"
+                                            onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-check-label" for="raider-checkbox" style="color: #115e14;">
+                                            Raider
+                                        </label>
+                                    </div>
+                                    <div class="col-1 ms-1">
+                                        <input class="form-check-input" type="checkbox" value="" id="initiate-checkbox"
+                                            onclick="handleSearch()">
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-check-label" for="initiate-checkbox" style="color: #4e949c;">
+                                            Initiate
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="loader"></div>
+</body>
+
+</html>
