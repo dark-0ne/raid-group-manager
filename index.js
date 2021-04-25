@@ -148,6 +148,10 @@ ipcMain.handle('main-load-characters', (event) => {
   mainWindow.loadFile("characters.html")
 })
 
+ipcMain.handle('main-load-raids', (event) => {
+  mainWindow.loadFile("raids.html")
+})
+
 ipcMain.handle('exit-app', (event) => {
   app.quit()
 })

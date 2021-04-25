@@ -8,7 +8,7 @@
   <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'" />
   <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="css/index.css">
-  <script defer src="render.js"></script>
+  <script defer src="scripts/render.js"></script>
   <script>
     window.$ = window.jQuery = require("jquery");
   </script>
@@ -18,7 +18,7 @@
 </head>
 
 <body class="d-flex h-100 text-center bg-light">
-  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column animate-bottom">
     <header class="mb-auto">
       <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -33,7 +33,7 @@
     <main class="px-3 mt-2">
       <button type="button" class="btn btn-primary btn-lg my-2" onclick="goToCharacters()">Character Viewer</button>
       <br>
-      <button type="button" class="btn btn-primary btn-lg my-2">Group Manager</button>
+      <button type="button" class="btn btn-primary btn-lg my-2" onclick="goToRaids()">Group Manager</button>
       <br>
       <button type="button" class="btn btn-primary btn-lg my-2" onclick="exitApp()">Exit</button>
     </main>
