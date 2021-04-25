@@ -1,9 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
 const fs = require("fs")
-
-const {
-    showAllRaids,
-} = require("./scripts/showRaids.js")
 
 const {
     ipcRenderer
@@ -17,10 +14,32 @@ const client = new MongoClient(uri, {
     useUnifiedTopology: true
 });
 
-function returnToHome(){
-    ipcRenderer.invoke("confirm-discard","index.html")
+function returnToHome() {
+    ipcRenderer.invoke("confirm-discard", "index.html")
 }
 
-function returnToRaids(){
-    ipcRenderer.invoke("confirm-discard","raids.html")
+function returnToRaids() {
+    ipcRenderer.invoke("confirm-discard", "raids.html")
 }
+
+function handleSize(){
+    const currentSize = document.getElementById("raid-size").value
+    if (currentSize === "other"){
+        document.getElementById("size-other-col").classList.remove("d-none")
+    }
+    else{
+        document.getElementById("size-other-col").classList.add("d-none")
+    }
+}
+
+function handleInstance(){
+    const currentInstance = document.getElementById("raid-instance").value
+    if (currentInstance === "other"){
+        document.getElementById("instance-other-col").classList.remove("d-none")
+    }
+    else{
+        document.getElementById("instance-other-col").classList.add("d-none")
+    }
+}
+
+document.getElementById("raid-id").value = new ObjectID().toHexString()

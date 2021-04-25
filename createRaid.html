@@ -7,16 +7,16 @@
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/createRaid.css">
+    <link rel="stylesheet" type="text/css" href="node_modules/jquery-datetimepicker/jquery.datetimepicker.css" />
+    <link rel="stylesheet" href="css/dtsel.css" />
     <script defer src="scripts/createRaid.js"></script>
-    <script>
-        window.$ = window.jQuery = require("jquery");
-    </script>
     <script src="scripts/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="scripts/dtsel.js"></script>
 </head>
 
 <body class="d-flex bg-light h-100">
-    <div class="cover-container text-center d-flex w-100 h-100 flex-column mx-auto" id="cover-container">
-        <header class="mb-auto">
+    <div class="cover-container d-flex w-100 h-100 flex-column mx-auto" id="cover-container">
+        <header class="mb-3">
             <div class="border-bottom sticky-top rounded py-2 px-4" id="search-navbar">
                 <div class="container">
                     <div class="row justify-content-between align-items-center">
@@ -24,7 +24,8 @@
                             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#" onclick="returnToHome()">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="#" onclick="returnToRaids()">Raid Manager</a></li>
+                                    <li class="breadcrumb-item"><a href="#" onclick="returnToRaids()">Raid Manager</a>
+                                    </li>
                                     <li class="breadcrumb-item active" aria-current="page">Create New Raid</li>
                                 </ol>
                             </nav>
@@ -39,6 +40,120 @@
                 </div>
             </div>
         </header>
+        <main>
+            <div class="container animate-bottom">
+                <div class="row justify-content-start my-2">
+                    <div class="col-1">
+                        <label for="raid-id" class="col-form-label">ID: </label>
+                    </div>
+                    <div class="col-2">
+                        <input type="text" id="raid-id" class="form-control" readonly>
+                    </div>
+                    <div class="col-1">
+                        <label for="raid-title" class="col-form-label">Title: </label>
+                    </div>
+                    <div class="col-3">
+                        <input type="text" id="raid-title" class="form-control">
+                    </div>
+                    <div class="col-2">
+                        <label for="raid-date" class="col-form-label">Date & Time: </label>
+                    </div>
+                    <div class="col-3">
+                        <input type="datetime-local" id="raid-date" class="form-control">
+                    </div>
+                </div>
+                <div class="row justify-content-start my-2">
+                    <div class="col-1">
+                        <label for="raid-size" class="col-form-label">Raid Size: </label>
+                    </div>
+                    <div class="col-2">
+                        <select class="form-select" aria-label="10 Man" id="raid-size" onchange="handleSize()">
+                            <option value="10man" selected>10 Man</option>
+                            <option value="25man">25 Man</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-2 d-none" id="size-other-col">
+                        <input type="type" id="size-other" class="form-control" placeholder="Enter raid size">
+                    </div>
+                    <div class="col-1">
+                        <label for="raid-instance" class="col-form-label">Instance: </label>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-select" aria-label="10 Man" id="raid-instance" onchange="handleInstance()">
+                            <option value="icc" selected>Icecrown Citadel</option>
+                            <option value="rs">Ruby Sanctum</option>
+                            <option value="os">Obsidian Sanctum</option>
+                            <option value="ulduar">Ulduar</option>
+                            <option value="naxx">Naxxramas</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-3 d-none" id="instance-other-col">
+                        <input type="type" id="instance-other" class="form-control" placeholder="Enter instance name">
+                    </div>
+                </div>
+                <div class="row justify-content-start my-2">
+                    <div class="col-1">
+                        <label for="raid-notes" class="form-label">Notes: </label>
+                    </div>
+                </div>
+                <div class="row justify-content-start mb-2 mx-2">
+                    <textarea class="form-control" id="raid-notes" rows="3"></textarea>
+                </div>
+            </div>
+        </main>
+        <main class="mx-3 my-5 h-100">
+            <div class="container h-100 bg-white rounded border border-4 border-secondary">
+                <div class="row h-100">
+                    <div class="col-4 dark-shadow-border py-3 border-end border-secondary border-3">
+                        <div class="container">
+                            <div class="row justify-content-center border-bottom border-secondary border-2 pb-2 text-center align-items-center">
+                                <div class="col-2">
+                                    <img src="./media/images/tank-icon.png" alt="tankIcon.png" width="35px" height="35px">
+                                </div>
+                                <div class="col-4">
+                                    Tank
+                                </div>
+                                <div class="col-2">
+                                    0
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 dark-shadow-border py-3 border-end border-secondary border-3">
+                        <div class="container">
+                            <div class="row justify-content-center border-bottom border-secondary border-2 pb-2 text-center align-items-center">
+                                <div class="col-2">
+                                    <img src="./media/images/healer-icon.png" alt="healerIcon.png" width="35px" height="35px">
+                                </div>
+                                <div class="col-4">
+                                    Healer
+                                </div>
+                                <div class="col-2">
+                                    0
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 dark-shadow-border py-3 border-end border-secondary border-3">
+                        <div class="container">
+                            <div class="row justify-content-center border-bottom border-secondary border-2 pb-2 text-center align-items-center">
+                                <div class="col-2">
+                                    <img src="./media/images/dps-icon.png" alt="dpsIcon.png" width="35px" height="35px">
+                                </div>
+                                <div class="col-4">
+                                    DPS
+                                </div>
+                                <div class="col-2">
+                                    0
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
 </body>
 

@@ -1,11 +1,14 @@
 html{
   height: 100%;
 }
+.dark-shadow-border{
+  box-shadow: inset 0 0 5rem rgba(130, 130, 130, .5);
+}
 body {
   min-height: 100%;
   -webkit-app-region: no-drag;
-  text-shadow: 0 .05rem .1rem rgba(160, 160, 160, .5);
-  box-shadow: inset 0 0 5rem rgba(160, 160, 160, .5);
+  text-shadow: 0 .05rem .1rem rgba(190, 190, 190, .5);
+  box-shadow: inset 0 0 5rem rgba(190, 190, 190, .5);
 }
 
 #empty-div{
@@ -87,4 +90,8 @@ button, a, input {
     bottom: 0;
     opacity: 1
   }
+}
+
+::placeholder {
+  font-style: italic;
 }

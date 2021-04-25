@@ -174,7 +174,7 @@ ipcMain.handle('confirm-discard', async (event, address) => {
   // Insert menu
   confirmWindow.setMenu(loginMenu);
   confirmWindow.setResizable(false)
-  await sleep(200)
+  await sleep(1500)
   confirmWindow.webContents.send('return-address',address);
 
 })
