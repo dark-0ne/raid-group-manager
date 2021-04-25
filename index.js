@@ -17,7 +17,7 @@ function createMainWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 900,
-    frame:false,
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -150,6 +150,37 @@ ipcMain.handle('main-load-characters', (event) => {
 
 ipcMain.handle('main-load-raids', (event) => {
   mainWindow.loadFile("raids.html")
+})
+
+ipcMain.handle('confirm-discard', async (event, address) => {
+  confirmWindow = new BrowserWindow({
+    width: 400,
+    height: 200,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  })
+
+  confirmWindow.loadFile('confirm.html')
+
+  function sleep(ms) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
+  // Build and set menu
+  const loginMenu = Menu.buildFromTemplate(loginMenuTemplate);
+  // Insert menu
+  confirmWindow.setMenu(loginMenu);
+  confirmWindow.setResizable(false)
+  await sleep(200)
+  confirmWindow.webContents.send('return-address',address);
+
+})
+
+ipcMain.handle("discard-confirmed", (event, address) => {
+  mainWindow.loadFile(address)
 })
 
 ipcMain.handle('exit-app', (event) => {
