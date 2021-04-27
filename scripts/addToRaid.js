@@ -2,8 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 const fs = require("fs")
 
 const {
-    showAllPlayers,
-    showSearchPlayers
+    showAddPlayers,
 } = require("./scripts/showPlayers")
 
 const {
@@ -17,6 +16,8 @@ const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+
+let currentPlayers = []
 
 function handleSearch(e) {
     const searchLoader = document.getElementById("search-loader")
@@ -145,7 +146,7 @@ function handleSearch(e) {
             if (err) {
                 console.log(err)
             } else {
-                showAllPlayers(data);
+                showAddPlayers(data);
             }
         })
     } else {
@@ -181,7 +182,7 @@ function handleSearch(e) {
             if (err) {
                 console.log(err)
             } else {
-                showSearchPlayers(data)
+                showAddPlayers(data)
             }
         })
     }
@@ -192,7 +193,6 @@ client.connect(err => {
     if (err) {
         ipcRenderer.invoke('show-login')
     } else {
-
         const player_col = client.db("raid-group-manager").collection("players");
         player_col.find({}).collation({
             'locale': 'en'
@@ -211,8 +211,21 @@ client.connect(err => {
                 const loader = document.getElementById("loader")
                 loader.remove();
 
-                showAllPlayers(data);
+                showAddPlayers(data);
             }
         })
     }
 });
+
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+
+function handleRole(player,role){
+    const payload = {
+        player: player,
+        role: role
+    }
+    ipcRenderer.invoke("add-char-to-raid",payload)
+}

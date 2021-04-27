@@ -28,6 +28,10 @@ client.connect(err => {
             if (err) {
                 console.log(err)
             } else {
+                //Show navbar
+                const navbar = document.getElementById("search-navbar")
+                navbar.classList.remove("d-none")
+
                 console.log(data)
                 // Remove loader spinner
                 const loader = document.getElementById("loader")

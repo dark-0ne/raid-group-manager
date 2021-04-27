@@ -1,26 +1,31 @@
-html{
+html {
   height: 100%;
 }
-.dark-shadow-border{
+
+.dark-shadow-border {
   box-shadow: inset 0 0 5rem rgba(130, 130, 130, .5);
 }
+
 body {
+  overflow: hidden;
   min-height: 100%;
   -webkit-app-region: no-drag;
   text-shadow: 0 .05rem .1rem rgba(190, 190, 190, .5);
   box-shadow: inset 0 0 5rem rgba(190, 190, 190, .5);
 }
 
-#empty-div{
+#empty-div {
   height: 900px;
 }
 
-#search-navbar{
+#search-navbar {
   background-color: #f2f3f7;
   -webkit-app-region: drag;
 }
 
-button, a, input {
+button,
+a,
+input {
   -webkit-app-region: no-drag;
 }
 
@@ -94,4 +99,85 @@ button, a, input {
 
 ::placeholder {
   font-style: italic;
+}
+
+.add-btn {
+  width: 35px;
+  height: 35px;
+  font-size: large;
+  padding: 0px;
+  font-weight: bold;
+}
+
+.character-row {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: 400;
+}
+
+.warrior-row {
+  color: brown;
+}
+
+.paladin-row {
+  color: hotpink;
+}
+
+.death-knight-row {
+  color: red;
+}
+
+.hunter-row {
+  color: green;
+}
+
+.shaman-row {
+  color: blue;
+}
+
+.rogue-row {
+  color: darkgoldenrod;
+}
+
+.druid-row {
+  color: darkorange;
+}
+
+.mage-row {
+  color: mediumturquoise;
+}
+
+.warlock-row {
+  color: rebeccapurple;
+}
+
+.priest-row {
+  color: black;
+}
+
+.badge-raid-leader{
+  border-radius: 20px;
+  width: 90px;
+  color: white;
+  background-color: black;
+}
+
+.badge-raider{
+  border-radius: 20px;
+  width: 90px;
+  color: white;
+  background-color: #115e14;
+}
+
+.badge-core-raider{
+  border-radius: 20px;
+  width: 90px;
+  color: white;
+  background-color: #75070e;
+}
+
+.badge-initiate{
+  border-radius: 20px;
+  width: 90px;
+  color: black;
+  background-color: #9fccd1;
 }

@@ -11,11 +11,22 @@ function showAllPlayers(players) {
     mainContainer.classList.add("animate-bottom")
     document.body.appendChild(mainContainer)
 
-    //Show navbar
-    const navbar = document.getElementById("search-navbar")
-    navbar.classList.remove("d-none")
+    if (players.length === 0) {
+        const coverContainer = document.getElementById("cover-container")
+        const emptyDiv = document.createElement("main")
+        emptyDiv.classList.add("animate-bottom")
 
-    if (players.length === 0) return
+        const emptyHeader = document.createElement("h2")
+        emptyHeader.textContent = "No characters to show"
+
+        emptyDiv.appendChild(emptyHeader)
+        coverContainer.appendChild(emptyDiv)
+
+        const footer = document.createElement("footer")
+        footer.classList.add("mt-auto")
+        coverContainer.appendChild(footer)
+        return
+    }
 
     let counter = 1
     for (player of players) {
@@ -261,7 +272,22 @@ function showSearchPlayers(players) {
     mainContainer.classList.add("animate-bottom")
     document.body.appendChild(mainContainer)
 
-    if (players.length === 0) return
+    if (players.length === 0) {
+        const coverContainer = document.getElementById("cover-container")
+        const emptyDiv = document.createElement("main")
+        emptyDiv.classList.add("animate-bottom")
+
+        const emptyHeader = document.createElement("h2")
+        emptyHeader.textContent = "No characters to show"
+
+        emptyDiv.appendChild(emptyHeader)
+        coverContainer.appendChild(emptyDiv)
+
+        const footer = document.createElement("footer")
+        footer.classList.add("mt-auto")
+        coverContainer.appendChild(footer)
+        return
+    }
 
     let counter = 1
     for (player of players) {
@@ -386,6 +412,231 @@ function showSearchPlayers(players) {
     }
 }
 
+function showAddPlayers(players) {
+
+    const prevContainer = document.getElementById("main-container")
+    if (prevContainer) prevContainer.remove()
+
+    // Create grid
+    const mainContainer = document.createElement("div")
+    mainContainer.id = "main-container"
+    mainContainer.classList.add("container")
+    mainContainer.classList.add("animate-bottom")
+    document.body.appendChild(mainContainer)
+
+    if (players.length === 0) {
+        const coverContainer = document.getElementById("cover-container")
+        const emptyDiv = document.createElement("main")
+        emptyDiv.classList.add("animate-bottom")
+
+        const emptyHeader = document.createElement("h2")
+        emptyHeader.textContent = "No characters to show"
+
+        emptyDiv.appendChild(emptyHeader)
+        coverContainer.appendChild(emptyDiv)
+
+        const footer = document.createElement("footer")
+        footer.classList.add("mt-auto")
+        coverContainer.appendChild(footer)
+        return
+    }
+
+    let counter = 0
+    currentPlayers = []
+    for (player of players) {
+        currentPlayers.push(player)
+        const row = document.createElement("div")
+        row.classList.add("row", "align-items-center", "border", "rounded", "bg-light", "py-1", "my-1", "character-row")
+        mainContainer.appendChild(row)
+
+        const class_div = document.createElement("div")
+        class_div.classList.add("col-1")
+        const class_icon = document.createElement("img")
+        class_icon.setAttribute("width", 40)
+        class_icon.setAttribute("height", 40)
+        switch (player.character_class) {
+            case "Warrior":
+                class_icon.setAttribute("src", "media/images/01-Warrior.png")
+                row.classList.add("warrior-row")
+                break;
+            case "Paladin":
+                class_icon.setAttribute("src", "media/images/02-Paladin.png")
+                row.classList.add("paladin-row")
+                break;
+            case "Death Knight":
+                class_icon.setAttribute("src", "media/images/03-DeathKnight.png")
+                row.classList.add("death-knight-row")
+                break;
+            case "Hunter":
+                class_icon.setAttribute("src", "media/images/04-Hunter.png")
+                row.classList.add("hunter-row")
+                break;
+            case "Shaman":
+                class_icon.setAttribute("src", "media/images/05-Shaman.png")
+                row.classList.add("shaman-row")
+                break;
+            case "Rogue":
+                class_icon.setAttribute("src", "media/images/06-Rogue.png")
+                row.classList.add("rogue-row")
+                break;
+            case "Druid":
+                class_icon.setAttribute("src", "media/images/07-Druid.png")
+                row.classList.add("druid-row")
+                break;
+            case "Mage":
+                class_icon.setAttribute("src", "media/images/08-Mage.png")
+                row.classList.add("mage-row")
+                break;
+            case "Warlock":
+                class_icon.setAttribute("src", "media/images/09-Warlock.png")
+                row.classList.add("warlock-row")
+                break;
+            case "Priest":
+                class_icon.setAttribute("src", "media/images/10-Priest.png")
+                row.classList.add("priest-row")
+                break;
+        }
+        class_div.appendChild(class_icon)
+        row.appendChild(class_div)
+
+        const guildRankDiv = document.createElement("div")
+        guildRankDiv.classList.add("col-2")
+        const guildRankPill = document.createElement("span")
+        guildRankPill.classList.add("badge")
+        switch (player.guild_rank) {
+            case "Raid Leader":
+                guildRankPill.classList.add("badge-raid-leader")
+                break;
+            case "Core Raider":
+                guildRankPill.classList.add("badge-core-raider")
+                break;
+            case "Raider":
+                guildRankPill.classList.add("badge-raider")
+                break;
+            case "Initiate":
+                guildRankPill.classList.add("badge-initiate")
+                break;
+        }
+        guildRankPill.textContent = player.guild_rank
+        guildRankDiv.appendChild(guildRankPill)
+        row.appendChild(guildRankDiv)
+
+        player.character_name = player.character_name.replace(/\W/g, "")
+        const character_name = document.createElement("div")
+        character_name.classList.add("col-2")
+        character_name.style.textAlign = "center"
+        character_name.textContent = player.character_name
+        row.appendChild(character_name)
+
+        const info = document.createElement("div")
+        info.classList.add("col-4")
+        info.style.textAlign = "center"
+        info.textContent = player.info
+        row.appendChild(info)
+
+        const buttonDiv = document.createElement("div")
+        buttonDiv.classList.add("col-3")
+        const buttonGroup = document.createElement("div")
+        buttonGroup.classList.add("btn-group", "mx-1")
+        buttonGroup.setAttribute("role","group")
+
+        const tankButton = document.createElement("input")
+        tankButton.setAttribute("type","radio")
+        tankButton.setAttribute("name",player.character_name+"-radio")
+        tankButton.setAttribute("value","tank")
+        tankButton.setAttribute("autocomplete","off")
+        tankButton.setAttribute("onclick","handleRole(currentPlayers["+(counter)+"],'tank')")
+        tankButton.classList.add("btn-check")
+        tankButton.id = player.character_name+"-radio-tank"
+        const tankLabel = document.createElement("label")
+        tankLabel.classList.add("btn", "btn-outline-primary")
+        tankLabel.setAttribute("for",player.character_name+"-radio-tank")
+        tankLabel.setAttribute("data-bs-toggle","tooltip")
+        tankLabel.setAttribute("data-bs-placement","top")
+        tankLabel.setAttribute("title","Add as Tank")
+
+        const tankIcon = document.createElement("i")
+        tankIcon.classList.add("fas", "fa-shield-alt")
+        tankLabel.appendChild(tankIcon)
+
+        const healerButton = document.createElement("input")
+        healerButton.setAttribute("type","radio")
+        healerButton.setAttribute("name",player.character_name+"-radio")
+        healerButton.setAttribute("value","healer")
+        healerButton.setAttribute("autocomplete","off")
+        healerButton.setAttribute("onclick","handleRole(currentPlayers["+(counter)+"],'healer')")
+        healerButton.classList.add("btn-check")
+        healerButton.id = player.character_name+"-radio-healer"
+        const healerLabel = document.createElement("label")
+        healerLabel.classList.add("btn", "btn-outline-primary")
+        healerLabel.setAttribute("for",player.character_name+"-radio-healer")
+        healerLabel.setAttribute("data-bs-toggle","tooltip")
+        healerLabel.setAttribute("data-bs-placement","top")
+        healerLabel.setAttribute("title","Add as Healer")
+
+        const healerIcon = document.createElement("i")
+        healerIcon.classList.add("fas", "fa-plus-circle")
+        healerLabel.appendChild(healerIcon)
+
+        const dpsButton = document.createElement("input")
+        dpsButton.setAttribute("type","radio")
+        dpsButton.setAttribute("name",player.character_name+"-radio")
+        dpsButton.setAttribute("value","dps")
+        dpsButton.setAttribute("autocomplete","off")
+        dpsButton.setAttribute("onclick","handleRole(currentPlayers["+(counter)+"],'dps')")
+        dpsButton.classList.add("btn-check")
+        dpsButton.id = player.character_name+"-radio-dps"
+        const dpsLabel = document.createElement("label")
+        dpsLabel.classList.add("btn", "btn-outline-primary")
+        dpsLabel.setAttribute("for",player.character_name+"-radio-dps")
+        dpsLabel.setAttribute("data-bs-toggle","tooltip")
+        dpsLabel.setAttribute("data-bs-placement","top")
+        dpsLabel.setAttribute("title","Add as DPS")
+
+        const dpsIcon = document.createElement("i")
+        dpsIcon.classList.add("fas", "fa-khanda")
+        dpsLabel.appendChild(dpsIcon)
+
+        const noneButton = document.createElement("input")
+        noneButton.setAttribute("type","radio")
+        noneButton.setAttribute("name",player.character_name+"-radio")
+        noneButton.setAttribute("value","none")
+        noneButton.setAttribute("autocomplete","off")
+        noneButton.setAttribute("onclick","handleRole(currentPlayers["+(counter)+"],'none')")
+        noneButton.checked = true
+        noneButton.classList.add("btn-check")
+        noneButton.id = player.character_name+"-radio-none"
+        const noneLabel = document.createElement("label")
+        noneLabel.classList.add("btn", "btn-outline-primary")
+        noneLabel.setAttribute("for",player.character_name+"-radio-none")
+        noneLabel.setAttribute("data-bs-toggle","tooltip")
+        noneLabel.setAttribute("data-bs-placement","top")
+        noneLabel.setAttribute("title","Do not add")
+
+        const noneIcon = document.createElement("i")
+        noneIcon.classList.add("fas", "fa-ban")
+        noneLabel.appendChild(noneIcon)
+
+        buttonGroup.appendChild(tankButton)
+        buttonGroup.appendChild(tankLabel)
+
+        buttonGroup.appendChild(healerButton)
+        buttonGroup.appendChild(healerLabel)
+
+        buttonGroup.appendChild(dpsButton)
+        buttonGroup.appendChild(dpsLabel)
+
+        buttonGroup.appendChild(noneButton)
+        buttonGroup.appendChild(noneLabel)
+
+        buttonDiv.appendChild(buttonGroup)
+        row.appendChild(buttonDiv)
+
+        counter++
+    }
+}
+
 
 exports.showAllPlayers = showAllPlayers
 exports.showSearchPlayers = showSearchPlayers
+exports.showAddPlayers = showAddPlayers

@@ -4,18 +4,12 @@ function showAllRaids(raids) {
     const prevContainer = document.getElementById("main-container")
     if (prevContainer) prevContainer.remove()
 
-    //Show navbar
-    const navbar = document.getElementById("search-navbar")
-    navbar.classList.remove("d-none")
-
     if (raids.length === 0) {
         const coverContainer = document.getElementById("cover-container")
         const emptyDiv = document.createElement("main")
-        //emptyDiv.classList.add("")
-        //emptyDiv.id = "empty-div"
+        emptyDiv.classList.add("animate-bottom")
 
         const emptyHeader = document.createElement("h2")
-        //emptyHeader.classList.add("my-auto")
         emptyHeader.textContent = "No raids to show"
 
         emptyDiv.appendChild(emptyHeader)

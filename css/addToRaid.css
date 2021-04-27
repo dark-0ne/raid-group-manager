@@ -74,6 +74,11 @@ body {
 
 .character-row {
   font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: 500;
+}
+
+.character-row {
+  font-family: Georgia, 'Times New Roman', Times, serif;
   font-weight: 400;
 }
 

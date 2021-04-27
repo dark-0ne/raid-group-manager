@@ -8,6 +8,7 @@ ipcRenderer.on("return-address",(event,address)=>{
     returnAddress = address
     document.getElementById("yes-button").disabled = false
 })
+
 function handleNo(){
     window.close()
 }
