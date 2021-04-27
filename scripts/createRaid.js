@@ -41,11 +41,36 @@ function handleInstance() {
 }
 
 function handleAddChar() {
-    ipcRenderer.invoke("add-to-raid-window")
+
+    let tanks = new Set(),
+        healers = new Set(),
+        dps = new Set
+    var rows = document.getElementById("tank-container").children
+
+    for (character of rows) {
+        if (character.getAttribute("name")) tanks.add(character.getAttribute("name"))
+    }
+
+    rows = document.getElementById("healer-container").children
+    for (character of rows) {
+        if (character.getAttribute("name")) healers.add(character.getAttribute("name"))
+    }
+
+    rows = document.getElementById("dps-container").children
+    for (character of rows) {
+        if (character.getAttribute("name")) dps.add(character.getAttribute("name"))
+    }
+
+    payload = {
+        tanks: tanks,
+        healers: healers,
+        dps: dps
+    }
+
+    ipcRenderer.invoke("create-add-to-raid-window",payload)
 }
 
 ipcRenderer.on("add-char-to-raid", (event, payload) => {
-    console.log(payload)
     //TODO: Add character name check
     payload.player.character_name = payload.player.character_name.replace(/\W/g, "")
 

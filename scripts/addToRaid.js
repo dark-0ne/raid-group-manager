@@ -17,7 +17,10 @@ const client = new MongoClient(uri, {
     useUnifiedTopology: true
 });
 
-let currentPlayers = []
+let tanks = new Set(),
+    healers = new Set(),
+    dps = new Set(),
+    currentPlayers = []
 
 function handleSearch(e) {
     const searchLoader = document.getElementById("search-loader")
@@ -206,7 +209,6 @@ client.connect(err => {
                 const navbar = document.getElementById("search-navbar")
                 navbar.classList.remove("d-none")
 
-                console.log(data)
                 // Remove loader spinner
                 const loader = document.getElementById("loader")
                 loader.remove();
@@ -219,13 +221,36 @@ client.connect(err => {
 
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-  return new bootstrap.Tooltip(tooltipTriggerEl)
+    return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 
-function handleRole(player,role){
+function handleRole(player, role) {
     const payload = {
         player: player,
         role: role
     }
-    ipcRenderer.invoke("add-char-to-raid",payload)
+    switch (role) {
+        case "tank":
+            tanks.add(player.character_name)
+            break
+        case "healer":
+            healers.add(player.character_name)
+            break
+        case "dps":
+            dps.add(player.character_name)
+            break
+        case "none":
+            tanks.delete(player.character_name)
+            healers.delete(player.character_name)
+            dps.delete(player.character_name)
+            break
+
+    }
+    ipcRenderer.invoke("add-char-to-raid", payload)
 }
+
+ipcRenderer.on("current-chars-in-raid", (event, payload) => {
+    tanks = payload.tanks
+    healers = payload.healers
+    dps = payload.dps
+})

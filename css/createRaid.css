@@ -181,3 +181,11 @@ input {
   color: black;
   background-color: #9fccd1;
 }
+
+.role-header{
+  font-weight: 700;
+}
+
+.character-container{
+  height: 482px;
+}

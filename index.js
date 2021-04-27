@@ -8,8 +8,11 @@ const fs = require("fs")
 const {
   ipcMain
 } = require('electron')
+const {
+  exception
+} = require('console')
 
-var loginWindow, mainWindow
+let loginWindow, mainWindow, raidWindow
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
@@ -173,7 +176,7 @@ ipcMain.handle('confirm-discard', async (event, address) => {
   confirmWindow.setMenu(loginMenu);
   confirmWindow.setResizable(false)
   await sleep(1500)
-  confirmWindow.webContents.send('return-address',address);
+  confirmWindow.webContents.send('return-address', address);
 
 })
 
@@ -181,36 +184,40 @@ ipcMain.handle("discard-confirmed", (event, address) => {
   mainWindow.loadFile(address)
 })
 
-ipcMain.handle('add-to-raid-window', async (event) => {
-  raidWindow = new BrowserWindow({
-    width: 900,
-    height: 500,
-    frame: false,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  })
+ipcMain.handle('create-add-to-raid-window', async (event,payload) => {
+  try {
+    raidWindow.focus()
+  } catch (err) {
+    raidWindow = new BrowserWindow({
+      width: 900,
+      height: 500,
+      frame: false,
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false,
+      },
+    })
 
-  raidWindow.loadFile('addToRaid.html')
+    raidWindow.loadFile('addToRaid.html')
 
-  function sleep(ms) {
-    return new Promise((resolve) => {
-      setTimeout(resolve, ms);
-    });
+    function sleep(ms) {
+      return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+      });
+    }
+    // Build and set menu
+    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+    // Insert menu
+    raidWindow.setMenu(mainMenu);
+    raidWindow.setResizable(false)
+    await sleep(300)
+    raidWindow.webContents.send('current-chars-in-raid',payload);
+
   }
-  // Build and set menu
-  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-  // Insert menu
-  raidWindow.setMenu(mainMenu);
-  raidWindow.setResizable(false)
-  await sleep(1500)
-  //confirmWindow.webContents.send('return-address',address);
-
 })
 
-ipcMain.handle('add-char-to-raid', (event,payload) => {
-  mainWindow.webContents.send('add-char-to-raid',payload);
+ipcMain.handle('add-char-to-raid', (event, payload) => {
+  mainWindow.webContents.send('add-char-to-raid', payload);
 })
 
 ipcMain.handle('exit-app', (event) => {

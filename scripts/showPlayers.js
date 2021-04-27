@@ -443,6 +443,7 @@ function showAddPlayers(players) {
 
     let counter = 0
     currentPlayers = []
+
     for (player of players) {
         currentPlayers.push(player)
         const row = document.createElement("div")
@@ -538,80 +539,84 @@ function showAddPlayers(players) {
         buttonDiv.classList.add("col-3")
         const buttonGroup = document.createElement("div")
         buttonGroup.classList.add("btn-group", "mx-1")
-        buttonGroup.setAttribute("role","group")
+        buttonGroup.setAttribute("role", "group")
 
         const tankButton = document.createElement("input")
-        tankButton.setAttribute("type","radio")
-        tankButton.setAttribute("name",player.character_name+"-radio")
-        tankButton.setAttribute("value","tank")
-        tankButton.setAttribute("autocomplete","off")
-        tankButton.setAttribute("onclick","handleRole(currentPlayers["+(counter)+"],'tank')")
+        tankButton.setAttribute("type", "radio")
+        tankButton.setAttribute("name", player.character_name + "-radio")
+        tankButton.setAttribute("value", "tank")
+        tankButton.setAttribute("autocomplete", "off")
+        tankButton.setAttribute("onclick", "handleRole(currentPlayers[" + (counter) + "],'tank')")
         tankButton.classList.add("btn-check")
-        tankButton.id = player.character_name+"-radio-tank"
+        tankButton.id = player.character_name + "-radio-tank"
         const tankLabel = document.createElement("label")
         tankLabel.classList.add("btn", "btn-outline-primary")
-        tankLabel.setAttribute("for",player.character_name+"-radio-tank")
-        tankLabel.setAttribute("data-bs-toggle","tooltip")
-        tankLabel.setAttribute("data-bs-placement","top")
-        tankLabel.setAttribute("title","Add as Tank")
+        tankLabel.setAttribute("for", player.character_name + "-radio-tank")
+        tankLabel.setAttribute("data-bs-toggle", "tooltip")
+        tankLabel.setAttribute("data-bs-placement", "top")
+        tankLabel.setAttribute("title", "Add as Tank")
 
         const tankIcon = document.createElement("i")
         tankIcon.classList.add("fas", "fa-shield-alt")
         tankLabel.appendChild(tankIcon)
 
         const healerButton = document.createElement("input")
-        healerButton.setAttribute("type","radio")
-        healerButton.setAttribute("name",player.character_name+"-radio")
-        healerButton.setAttribute("value","healer")
-        healerButton.setAttribute("autocomplete","off")
-        healerButton.setAttribute("onclick","handleRole(currentPlayers["+(counter)+"],'healer')")
+        healerButton.setAttribute("type", "radio")
+        healerButton.setAttribute("name", player.character_name + "-radio")
+        healerButton.setAttribute("value", "healer")
+        healerButton.setAttribute("autocomplete", "off")
+        healerButton.setAttribute("onclick", "handleRole(currentPlayers[" + (counter) + "],'healer')")
         healerButton.classList.add("btn-check")
-        healerButton.id = player.character_name+"-radio-healer"
+        healerButton.id = player.character_name + "-radio-healer"
         const healerLabel = document.createElement("label")
         healerLabel.classList.add("btn", "btn-outline-primary")
-        healerLabel.setAttribute("for",player.character_name+"-radio-healer")
-        healerLabel.setAttribute("data-bs-toggle","tooltip")
-        healerLabel.setAttribute("data-bs-placement","top")
-        healerLabel.setAttribute("title","Add as Healer")
+        healerLabel.setAttribute("for", player.character_name + "-radio-healer")
+        healerLabel.setAttribute("data-bs-toggle", "tooltip")
+        healerLabel.setAttribute("data-bs-placement", "top")
+        healerLabel.setAttribute("title", "Add as Healer")
 
         const healerIcon = document.createElement("i")
         healerIcon.classList.add("fas", "fa-plus-circle")
         healerLabel.appendChild(healerIcon)
 
         const dpsButton = document.createElement("input")
-        dpsButton.setAttribute("type","radio")
-        dpsButton.setAttribute("name",player.character_name+"-radio")
-        dpsButton.setAttribute("value","dps")
-        dpsButton.setAttribute("autocomplete","off")
-        dpsButton.setAttribute("onclick","handleRole(currentPlayers["+(counter)+"],'dps')")
+        dpsButton.setAttribute("type", "radio")
+        dpsButton.setAttribute("name", player.character_name + "-radio")
+        dpsButton.setAttribute("value", "dps")
+        dpsButton.setAttribute("autocomplete", "off")
+        dpsButton.setAttribute("onclick", "handleRole(currentPlayers[" + (counter) + "],'dps')")
         dpsButton.classList.add("btn-check")
-        dpsButton.id = player.character_name+"-radio-dps"
+        dpsButton.id = player.character_name + "-radio-dps"
         const dpsLabel = document.createElement("label")
         dpsLabel.classList.add("btn", "btn-outline-primary")
-        dpsLabel.setAttribute("for",player.character_name+"-radio-dps")
-        dpsLabel.setAttribute("data-bs-toggle","tooltip")
-        dpsLabel.setAttribute("data-bs-placement","top")
-        dpsLabel.setAttribute("title","Add as DPS")
+        dpsLabel.setAttribute("for", player.character_name + "-radio-dps")
+        dpsLabel.setAttribute("data-bs-toggle", "tooltip")
+        dpsLabel.setAttribute("data-bs-placement", "top")
+        dpsLabel.setAttribute("title", "Add as DPS")
 
         const dpsIcon = document.createElement("i")
         dpsIcon.classList.add("fas", "fa-khanda")
         dpsLabel.appendChild(dpsIcon)
 
         const noneButton = document.createElement("input")
-        noneButton.setAttribute("type","radio")
-        noneButton.setAttribute("name",player.character_name+"-radio")
-        noneButton.setAttribute("value","none")
-        noneButton.setAttribute("autocomplete","off")
-        noneButton.setAttribute("onclick","handleRole(currentPlayers["+(counter)+"],'none')")
-        noneButton.checked = true
+        noneButton.setAttribute("type", "radio")
+        noneButton.setAttribute("name", player.character_name + "-radio")
+        noneButton.setAttribute("value", "none")
+        noneButton.setAttribute("autocomplete", "off")
+        noneButton.setAttribute("onclick", "handleRole(currentPlayers[" + (counter) + "],'none')")
         noneButton.classList.add("btn-check")
-        noneButton.id = player.character_name+"-radio-none"
+        noneButton.id = player.character_name + "-radio-none"
         const noneLabel = document.createElement("label")
         noneLabel.classList.add("btn", "btn-outline-primary")
-        noneLabel.setAttribute("for",player.character_name+"-radio-none")
-        noneLabel.setAttribute("data-bs-toggle","tooltip")
-        noneLabel.setAttribute("data-bs-placement","top")
-        noneLabel.setAttribute("title","Do not add")
+        noneLabel.setAttribute("for", player.character_name + "-radio-none")
+        noneLabel.setAttribute("data-bs-toggle", "tooltip")
+        noneLabel.setAttribute("data-bs-placement", "top")
+        noneLabel.setAttribute("title", "Do not add")
+
+        if (tanks.has(player.character_name)) tankButton.checked = true
+        else if (healers.has(player.character_name)) healerButton.checked = true
+        else if (dps.has(player.character_name)) dpsButton.checked = true
+        else noneButton.checked = true
 
         const noneIcon = document.createElement("i")
         noneIcon.classList.add("fas", "fa-ban")
