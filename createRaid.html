@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Raid Manager</title>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://kit.fontawesome.com/97b502b1b3.js" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/createRaid.css">
     <link rel="stylesheet" type="text/css" href="node_modules/jquery-datetimepicker/jquery.datetimepicker.css" />
-    <script defer src="scripts/createRaid.js"></script>
+    <script src="https://kit.fontawesome.com/97b502b1b3.js" crossorigin="anonymous"></script>
     <script src="scripts/bootstrap/bootstrap.bundle.min.js"></script>
+    <script defer src="scripts/createRaid.js"></script>
 </head>
 
 <body class="d-flex bg-light h-100">
@@ -18,7 +19,7 @@
             <div class="border-bottom sticky-top rounded py-2 px-4" id="search-navbar">
                 <div class="container">
                     <div class="row justify-content-between align-items-center">
-                        <div class="col-10 pt-3">
+                        <div class="col-9 pt-3">
                             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#" onclick="returnToHome()">Home</a></li>
@@ -32,7 +33,15 @@
                             <button class="btn btn-secondary" onclick="returnToRaids()">Discard</button>
                         </div>
                         <div class="col-1 py-auto">
-                            <button class="btn btn-success" onclick="saveRaid()">Save</button>
+                            <button class="btn btn-success" onclick="saveRaid()" id="save-btn">Save</button>
+                        </div>
+                        <div class="col-1 py-auto">
+                            <div class="spinner-border text-primary d-none mx-2" role="status" id="save-loader">
+                                <span cLass="visually-hidden">Loading...</span>
+                            </div>
+                            <div class="d-none mx-2" role="status" id="save-result" style="font-weight: 900; color: green;">
+                                <i class="fas fa-check fa-lg" id="result-icon"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,24 +75,22 @@
                     </div>
                     <div class="col-2">
                         <select class="form-select" aria-label="10 Man" id="raid-size" onchange="handleSize()">
-                            <option value="10man" selected>10 Man</option>
-                            <option value="25man">25 Man</option>
+                            <option value="10-man" selected>10 Man</option>
+                            <option value="25-man">25 Man</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
                     <div class="col-2 d-none" id="size-other-col">
-                        <input type="type" id="size-other" class="form-control" placeholder="Enter raid size">
+                        <input type="type" id="size-other" class="form-control" placeholder="Enter size (e.g. 15)">
                     </div>
                     <div class="col-1">
                         <label for="raid-instance" class="col-form-label">Instance: </label>
                     </div>
                     <div class="col-3">
                         <select class="form-select" aria-label="10 Man" id="raid-instance" onchange="handleInstance()">
-                            <option value="icc" selected>Icecrown Citadel</option>
-                            <option value="rs">Ruby Sanctum</option>
-                            <option value="os">Obsidian Sanctum</option>
-                            <option value="ulduar">Ulduar</option>
-                            <option value="naxx">Naxxramas</option>
+                            <option value="Icecrown Citadel" selected>Icecrown Citadel</option>
+                            <option value="Ruby Sanctum">Ruby Sanctum</option>
+                            <option value="Trial of the Crusader">Trial of the Crusader</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
@@ -115,22 +122,22 @@
         </main>
         <main class="mx-2 mb-4 mt-1 animate-bottom">
             <div class="container bg-white rounded border border-4 border-secondary">
-                <div class="row" >
+                <div class="row">
                     <div class="col-4 dark-shadow-border py-3 border-end border-secondary border-3">
                         <div class="container overflow-auto character-container" id="tank-container">
-                                <div
-                                    class="row justify-content-center border-bottom border-secondary border-2 pb-2 text-center align-items-center">
-                                    <div class="col-1">
-                                        <img src="./media/images/tank-icon.png" alt="tankIcon.png" width="35px"
-                                            height="35px">
-                                    </div>
-                                    <div class="col-5 offset-1 role-header">
-                                        Tank
-                                    </div>
-                                    <div class="col-3 role-header" id="tank-counter">
-                                        0
-                                    </div>
+                            <div
+                                class="row justify-content-center border-bottom border-secondary border-2 pb-2 text-center align-items-center">
+                                <div class="col-1">
+                                    <img src="./media/images/tank-icon.png" alt="tankIcon.png" width="35px"
+                                        height="35px">
                                 </div>
+                                <div class="col-3 offset-1 role-header">
+                                    Tank
+                                </div>
+                                <div class="col-3 role-header" id="tank-counter">
+                                    0
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-4 dark-shadow-border py-3 border-end border-secondary border-3">
@@ -141,7 +148,7 @@
                                     <img src="./media/images/healer-icon.png" alt="healerIcon.png" width="35px"
                                         height="35px">
                                 </div>
-                                <div class="col-5 offset-1 role-header">
+                                <div class="col-3 offset-1 role-header">
                                     Healer
                                 </div>
                                 <div class="col-3 role-header" id="healer-counter">
@@ -157,7 +164,7 @@
                                 <div class="col-1">
                                     <img src="./media/images/dps-icon.png" alt="dpsIcon.png" width="35px" height="35px">
                                 </div>
-                                <div class="col-5 offset-1 role-header">
+                                <div class="col-3 offset-1 role-header">
                                     DPS
                                 </div>
                                 <div class="col-3 role-header" id="dps-counter">

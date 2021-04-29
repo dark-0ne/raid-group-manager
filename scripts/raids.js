@@ -1,4 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
 const fs = require("fs")
 
 const {
@@ -42,3 +43,24 @@ client.connect(err => {
         })
     }
 });
+
+function deleteRaid(raidID) {
+    client.connect(err => {
+        if (err) {
+            ipcRenderer.invoke('show-login')
+        } else {
+            const raid_col = client.db("raid-group-manager").collection("raids");
+            raid_col.deleteOne({
+                _id: new ObjectID(raidID)
+            }, (err) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    //Show navbar
+                    console.log("raid deleted")
+                    location.reload()
+                }
+            })
+        }
+    });
+}

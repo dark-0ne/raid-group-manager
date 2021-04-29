@@ -88,3 +88,71 @@ button, a, input {
     opacity: 1
   }
 }
+
+.raid-row {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: 500;
+}
+
+.badge-icc{
+  border-radius: 20px;
+  width: 60px;
+  color: white;
+  background-color: #053da6;
+}
+.badge-rs{
+  border-radius: 20px;
+  width: 60px;
+  color: white;
+  background-color: #8f0404;
+}
+.badge-toc{
+  border-radius: 20px;
+  width: 60px;
+  color: white;
+  background-color: #75471b;
+}
+.badge-instance-other{
+  border-radius: 20px;
+  width: 60px;
+  color: white;
+  background-color: #0d5412;
+}
+.badge-10man{
+  border-radius: 20px;
+  width: 60px;
+  color: white;
+  background-color: #560887;
+}
+.badge-25man{
+  border-radius: 20px;
+  width: 60px;
+  color: white;
+  background-color: #e37a02;
+}
+.badge-size-other{
+  border-radius: 20px;
+  width: 60px;
+  color: white;
+  background-color: #005e5d;
+}
+.badge-dkp{
+  border-radius: 20px;
+  width: 60px;
+  color: white;
+  background-color: hotpink;
+}
+
+.fa-eye{
+  color: gray
+}
+.btn-outline-secondary:hover{
+  background-color: lightgray;
+}
+
+.btn-outline-secondary{
+  width: 40px;
+}
+.btn-outline-danger{
+  width: 40px;
+}

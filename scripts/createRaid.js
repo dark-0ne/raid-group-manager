@@ -14,6 +14,10 @@ const client = new MongoClient(uri, {
     useUnifiedTopology: true
 });
 
+let raidTanks = [],
+    raidHealers = [],
+    raidDps = []
+
 function returnToHome() {
     ipcRenderer.invoke("confirm-discard", "index.html")
 }
@@ -67,16 +71,28 @@ function handleAddChar() {
         dps: dps
     }
 
-    ipcRenderer.invoke("create-add-to-raid-window",payload)
+    ipcRenderer.invoke("create-add-to-raid-window", payload)
 }
 
 ipcRenderer.on("add-char-to-raid", (event, payload) => {
     //TODO: Add character name check
     payload.player.character_name = payload.player.character_name.replace(/\W/g, "")
+    delete payload.player._id
 
     const query = "div.row.character-row[name='" + payload.player.character_name + "']"
     const prevRow = document.querySelector(query)
     if (prevRow) prevRow.remove()
+
+
+    raidTanks = raidTanks.filter((value, index, arr) => {
+        return payload.player.character_name !== value.character_name
+    })
+    raidHealers = raidHealers.filter((value, index, arr) => {
+        return payload.player.character_name !== value.character_name
+    })
+    raidDps = raidDps.filter((value, index, arr) => {
+        return payload.player.character_name !== value.character_name
+    })
 
     if (payload.role === "none") {
         const numberOfTanks = document.getElementById("tank-container").children.length
@@ -175,14 +191,17 @@ ipcRenderer.on("add-char-to-raid", (event, payload) => {
     switch (payload.role) {
         case "tank":
             document.getElementById("tank-container").appendChild(row)
+            raidTanks.push(payload.player)
             break
 
         case "healer":
             document.getElementById("healer-container").appendChild(row)
+            raidHealers.push(payload.player)
             break
 
         case "dps":
             document.getElementById("dps-container").appendChild(row)
+            raidDps.push(payload.player)
             break
     }
 
@@ -197,6 +216,105 @@ ipcRenderer.on("add-char-to-raid", (event, payload) => {
 
 })
 
-const raidID = new ObjectID().toHexString()
+function saveRaid() {
+    const raidTitle = document.getElementById("raid-title")
+    const alphanumericRegex = /^[a-z0-9]+$/i
+
+    let validForm = true
+
+    if (!alphanumericRegex.test(raidTitle.value)) {
+        raidTitle.classList.add("is-invalid")
+        validForm = false
+    } else {
+        raidTitle.classList.remove("is-invalid")
+    }
+
+    const raidDate = document.getElementById("raid-date")
+    if (raidDate.value.length === 0) {
+        raidDate.classList.add("is-invalid")
+        validForm = false
+    } else {
+        raidDate.classList.remove("is-invalid")
+    }
+
+    let raidSize = document.getElementById("raid-size").value
+    if (raidSize === "other") {
+        const customRaidSize = document.getElementById("size-other")
+        const numericRegex = /^[0-9]+$/i
+        if (!numericRegex.test(customRaidSize.value)) {
+            customRaidSize.classList.add("is-invalid")
+            validForm = false
+        } else {
+            customRaidSize.classList.remove("is-invalid")
+            raidSize = customRaidSize.value
+        }
+    }
+
+    let raidInstance = document.getElementById("raid-instance").value
+    if (raidInstance === "other") {
+        const customRaidInstance = document.getElementById("instance-other")
+        const alphaRegex = /^[a-z]+$/i
+        if (!alphaRegex.test(customRaidInstance.value)) {
+            customRaidInstance.classList.add("is-invalid")
+            validForm = false
+        } else {
+            customRaidInstance.classList.remove("is-invalid")
+            raidInstance = customRaidInstance.value
+        }
+    }
+
+    if (!validForm) return
+
+    raid = {
+        _id: raidID,
+        title: raidTitle.value,
+        date: new Date(raidDate.value),
+        size: raidSize,
+        instance: raidInstance,
+        notes: document.getElementById("raid-notes").value,
+        dkp: document.getElementById("dkpCheckbox").checked,
+        tanks: raidTanks,
+        healers: raidHealers,
+        dps: raidDps
+    }
+
+    console.log(raid)
+
+    document.getElementById("save-loader").classList.remove("d-none")
+    document.getElementById("save-result").classList.add("d-none")
+    document.getElementById("save-btn").disabled = true
+    client.connect(async (err) => {
+        if (err) {
+            ipcRenderer.invoke('show-login')
+        } else {
+            const raid_col = client.db("raid-group-manager").collection("raids");
+            try {
+                const result = await raid_col.insertOne(raid);
+                document.getElementById("save-loader").classList.add("d-none")
+                document.getElementById("save-result").classList.remove("d-none")
+
+                const resultIcon = document.getElementById("result-icon")
+                resultIcon.classList.remove("fa-times")
+                resultIcon.classList.add("fa-check")
+                resultIcon.style.color = "green"
+                setTimeout(() => {  window.location.replace("raids.html"); }, 1000);
+
+            } catch (err) {
+                console.log(err)
+                document.getElementById("save-btn").disabled = false
+
+                document.getElementById("save-loader").classList.add("d-none")
+                document.getElementById("save-result").classList.remove("d-none")
+
+                const resultIcon = document.getElementById("result-icon")
+                resultIcon.classList.remove("fa-check")
+                resultIcon.classList.add("fa-times")
+                resultIcon.style.color = "#a11b1b"
+            }
+        }
+    })
+}
+
+const raidID = new ObjectID()
 document.getElementById("raid-id").value = raidID
 document.getElementById("breadcrumb-id").textContent = raidID
