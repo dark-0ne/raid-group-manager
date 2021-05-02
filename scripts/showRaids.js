@@ -8,7 +8,7 @@ function showAllRaids(raids) {
 
     if (raids.length === 0) {
         const emptyDiv = document.createElement("main")
-        emptyDiv.classList.add("animate-bottom","mt-auto")
+        emptyDiv.classList.add("animate-bottom", "mt-auto")
 
         const emptyHeader = document.createElement("h2")
         emptyHeader.textContent = "No raids to show"
@@ -30,6 +30,7 @@ function showAllRaids(raids) {
     coverContainer.appendChild(mainContainer)
 
     let counter = 1
+    console.log(raids)
     for (raid of raids) {
         const row = document.createElement("div")
         row.classList.add("row", "align-items-center", "border", "rounded", "bg-light", "py-1", "my-1", "raid-row", "justify-content-start")
@@ -42,7 +43,7 @@ function showAllRaids(raids) {
 
         const title = document.createElement("div")
         title.classList.add("col-3")
-        title.style.textAlign = "center";
+        title.style.textAlign = "left";
         title.textContent = raid.title
         row.appendChild(title)
 
@@ -109,40 +110,35 @@ function showAllRaids(raids) {
         if (!raid.dkp) {
             dkpDiv.classList.add("d-none")
             date.classList.add("offset-1")
-
+        }
         const buttonDiv = document.createElement("div")
         buttonDiv.classList.add("col-2")
-        const buttonGroup = document.createElement("div")
-        buttonGroup.classList.add("btn-group", "mx-1")
-        buttonGroup.setAttribute("role", "group")
+        row.appendChild(buttonDiv)
 
         const viewButton = document.createElement("button")
         viewButton.setAttribute("type", "button")
-        viewButton.setAttribute("onclick", "showRaid('"+ raid._id +"')")
-        viewButton.classList.add("btn", "btn-outline-secondary","m-1","px-1")
+        viewButton.setAttribute("onclick", "showRaid('" + raid._id + "')")
+        viewButton.classList.add("btn", "btn-outline-secondary", "m-1", "px-1")
         viewButton.setAttribute("data-bs-toggle", "tooltip")
         viewButton.setAttribute("data-bs-placement", "top")
         viewButton.setAttribute("title", "View Raid")
         const viewIcon = document.createElement("i")
         viewIcon.classList.add("fas", "fa-eye")
+        viewButton.appendChild(viewIcon)
 
         const deleteButton = document.createElement("button")
         deleteButton.setAttribute("type", "button")
-        deleteButton.setAttribute("onclick", "deleteRaid('"+ raid._id +"')")
-        deleteButton.classList.add("btn", "btn-outline-danger","m-1")
+        deleteButton.setAttribute("onclick", "deleteRaid('" + raid._id + "')")
+        deleteButton.classList.add("btn", "btn-outline-danger", "m-1")
         deleteButton.setAttribute("data-bs-toggle", "tooltip")
         deleteButton.setAttribute("data-bs-placement", "top")
         deleteButton.setAttribute("title", "Delete Raid")
         const deleteIcon = document.createElement("i")
         deleteIcon.classList.add("fas", "fa-trash-alt")
-
-        viewButton.appendChild(viewIcon)
         deleteButton.appendChild(deleteIcon)
+
         buttonDiv.appendChild(viewButton)
         buttonDiv.appendChild(deleteButton)
-        //buttonDiv.appendChild(buttonGroup)
-        row.appendChild(buttonDiv)
-        }
     }
     const footer = document.createElement("footer")
     footer.classList.add("mt-auto")

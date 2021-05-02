@@ -33,7 +33,6 @@ client.connect(err => {
                 const navbar = document.getElementById("search-navbar")
                 navbar.classList.remove("d-none")
 
-                console.log(data)
                 // Remove loader spinner
                 const loader = document.getElementById("loader")
                 loader.remove();
@@ -56,11 +55,13 @@ function deleteRaid(raidID) {
                 if (err) {
                     console.log(err)
                 } else {
-                    //Show navbar
-                    console.log("raid deleted")
                     location.reload()
                 }
             })
         }
     });
+}
+
+function showRaid(raidID) {
+    window.location.replace("editRaid.html?q="+raidID);
 }

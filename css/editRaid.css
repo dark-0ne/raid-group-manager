@@ -1,0 +1,191 @@
+html {
+  height: 100%;
+}
+
+.dark-shadow-border {
+  box-shadow: inset 0 0 5rem rgba(130, 130, 130, .5);
+}
+
+body {
+  overflow: hidden;
+  min-height: 100%;
+  -webkit-app-region: no-drag;
+  text-shadow: 0 .05rem .1rem rgba(190, 190, 190, .5);
+  box-shadow: inset 0 0 5rem rgba(190, 190, 190, .5);
+}
+
+#empty-div {
+  height: 900px;
+}
+
+#search-navbar {
+  background-color: #f2f3f7;
+  -webkit-app-region: drag;
+}
+
+button,
+a,
+input {
+  -webkit-app-region: no-drag;
+}
+
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  margin: -76px 0 0 -76px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from {
+    bottom: -100px;
+    opacity: 0
+  }
+
+  to {
+    bottom: 0px;
+    opacity: 1
+  }
+}
+
+@keyframes animatebottom {
+  from {
+    bottom: -100px;
+    opacity: 0
+  }
+
+  to {
+    bottom: 0;
+    opacity: 1
+  }
+}
+
+::placeholder {
+  font-style: italic;
+}
+
+.add-btn {
+  width: 35px;
+  height: 35px;
+  font-size: large;
+  padding: 0px;
+  font-weight: bold;
+}
+
+.character-row {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: 400;
+}
+
+.warrior-row {
+  color: brown;
+}
+
+.paladin-row {
+  color: hotpink;
+}
+
+.death-knight-row {
+  color: red;
+}
+
+.hunter-row {
+  color: green;
+}
+
+.shaman-row {
+  color: blue;
+}
+
+.rogue-row {
+  color: darkgoldenrod;
+}
+
+.druid-row {
+  color: darkorange;
+}
+
+.mage-row {
+  color: mediumturquoise;
+}
+
+.warlock-row {
+  color: rebeccapurple;
+}
+
+.priest-row {
+  color: black;
+}
+
+.badge-raid-leader{
+  border-radius: 20px;
+  width: 90px;
+  color: white;
+  background-color: black;
+}
+
+.badge-raider{
+  border-radius: 20px;
+  width: 90px;
+  color: white;
+  background-color: #115e14;
+}
+
+.badge-core-raider{
+  border-radius: 20px;
+  width: 90px;
+  color: white;
+  background-color: #75070e;
+}
+
+.badge-initiate{
+  border-radius: 20px;
+  width: 90px;
+  color: black;
+  background-color: #9fccd1;
+}
+
+.role-header{
+  font-weight: 700;
+}
+
+.character-container{
+  height: 482px;
+}
