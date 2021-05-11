@@ -149,14 +149,6 @@ ipcMain.handle('open-armory', (event, link) => {
   Menu.setApplicationMenu(mainMenu);
 })
 
-ipcMain.handle('main-load-characters', (event) => {
-  mainWindow.loadFile("characters.html")
-})
-
-ipcMain.handle('main-load-raids', (event) => {
-  mainWindow.loadFile("raids.html")
-})
-
 ipcMain.handle('confirm-discard', async (event, address) => {
   confirmWindow = new BrowserWindow({
     width: 400,
