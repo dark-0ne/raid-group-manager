@@ -2,8 +2,8 @@ const MongoClient = require('mongodb').MongoClient;
 const fs = require("fs")
 
 const {
-    showAddPlayers,
-} = require("./scripts/showPlayers")
+    showAddCharacters,
+} = require("./scripts/showCharacters")
 
 const {
     ipcRenderer
@@ -145,7 +145,7 @@ function handleSearch(e) {
             if (err) {
                 console.log(err)
             } else {
-                showAddPlayers(data);
+                showAddCharacters(data);
             }
         })
     } else {
@@ -181,7 +181,7 @@ function handleSearch(e) {
             if (err) {
                 console.log(err)
             } else {
-                showAddPlayers(data)
+                showAddCharacters(data)
             }
         })
     }
@@ -209,7 +209,7 @@ client.connect(err => {
                 const loader = document.getElementById("loader")
                 loader.remove();
 
-                showAddPlayers(data);
+                showAddCharacters(data);
             }
         })
     }
@@ -220,25 +220,25 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 
-function handleRole(player, role) {
+function handleRole(character, role) {
     const payload = {
-        player: player,
+        character: character,
         role: role
     }
     switch (role) {
         case "tank":
-            tanks.add(player.character_name)
+            tanks.add(character.character_name)
             break
         case "healer":
-            healers.add(player.character_name)
+            healers.add(character.character_name)
             break
         case "dps":
-            dps.add(player.character_name)
+            dps.add(character.character_name)
             break
         case "none":
-            tanks.delete(player.character_name)
-            healers.delete(player.character_name)
-            dps.delete(player.character_name)
+            tanks.delete(character.character_name)
+            healers.delete(character.character_name)
+            dps.delete(character.character_name)
             break
 
     }

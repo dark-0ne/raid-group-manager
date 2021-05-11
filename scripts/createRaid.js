@@ -73,22 +73,22 @@ function handleAddChar() {
 
 ipcRenderer.on("add-char-to-raid", (event, payload) => {
     //TODO: Add character name check
-    payload.player.character_name = payload.player.character_name.replace(/\W/g, "")
-    delete payload.player._id
+    payload.character.character_name = payload.character.character_name.replace(/\W/g, "")
+    delete payload.character._id
 
-    const query = "div.row.character-row[name='" + payload.player.character_name + "']"
+    const query = "div.row.character-row[name='" + payload.character.character_name + "']"
     const prevRow = document.querySelector(query)
     if (prevRow) prevRow.remove()
 
 
     raidTanks = raidTanks.filter((value, index, arr) => {
-        return payload.player.character_name !== value.character_name
+        return payload.character.character_name !== value.character_name
     })
     raidHealers = raidHealers.filter((value, index, arr) => {
-        return payload.player.character_name !== value.character_name
+        return payload.character.character_name !== value.character_name
     })
     raidDps = raidDps.filter((value, index, arr) => {
-        return payload.player.character_name !== value.character_name
+        return payload.character.character_name !== value.character_name
     })
 
     if (payload.role === "none") {
@@ -105,14 +105,14 @@ ipcRenderer.on("add-char-to-raid", (event, payload) => {
     }
     const row = document.createElement("div")
     row.classList.add("row", "align-items-center", "py-1", "my-1", "character-row")
-    row.setAttribute("name", payload.player.character_name)
+    row.setAttribute("name", payload.character.character_name)
 
     const class_div = document.createElement("div")
     class_div.classList.add("col-2")
     const class_icon = document.createElement("img")
     class_icon.setAttribute("width", 30)
     class_icon.setAttribute("height", 30)
-    switch (payload.player.character_class) {
+    switch (payload.character.character_class) {
         case "Warrior":
             class_icon.setAttribute("src", "media/images/01-Warrior.png")
             row.classList.add("warrior-row")
@@ -161,7 +161,7 @@ ipcRenderer.on("add-char-to-raid", (event, payload) => {
     guildRankDiv.classList.add("col-2")
     const guildRankPill = document.createElement("span")
     guildRankPill.classList.add("badge")
-    switch (payload.player.guild_rank) {
+    switch (payload.character.guild_rank) {
         case "Raid Leader":
             guildRankPill.classList.add("badge-raid-leader")
             break;
@@ -175,30 +175,30 @@ ipcRenderer.on("add-char-to-raid", (event, payload) => {
             guildRankPill.classList.add("badge-initiate")
             break;
     }
-    guildRankPill.textContent = payload.player.guild_rank
+    guildRankPill.textContent = payload.character.guild_rank
     guildRankDiv.appendChild(guildRankPill)
     row.appendChild(guildRankDiv)
 
     const character_name = document.createElement("div")
     character_name.classList.add("col-8")
     character_name.style.textAlign = "center"
-    character_name.textContent = payload.player.character_name
+    character_name.textContent = payload.character.character_name
     row.appendChild(character_name)
 
     switch (payload.role) {
         case "tank":
             document.getElementById("tank-container").appendChild(row)
-            raidTanks.push(payload.player)
+            raidTanks.push(payload.character)
             break
 
         case "healer":
             document.getElementById("healer-container").appendChild(row)
-            raidHealers.push(payload.player)
+            raidHealers.push(payload.character)
             break
 
         case "dps":
             document.getElementById("dps-container").appendChild(row)
-            raidDps.push(payload.player)
+            raidDps.push(payload.character)
             break
     }
 

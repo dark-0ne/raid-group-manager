@@ -2,9 +2,9 @@ const MongoClient = require('mongodb').MongoClient;
 const fs = require("fs")
 
 const {
-    showAllPlayers,
-    showSearchPlayers
-} = require("./scripts/showPlayers")
+    showAllCharacters,
+    showSearchCharacters
+} = require("./scripts/showCharacters")
 
 const {
     ipcRenderer
@@ -142,7 +142,7 @@ function handleSearch(e) {
             if (err) {
                 console.log(err)
             } else {
-                showAllPlayers(data);
+                showAllCharacters(data);
             }
         })
     } else {
@@ -178,7 +178,7 @@ function handleSearch(e) {
             if (err) {
                 console.log(err)
             } else {
-                showSearchPlayers(data)
+                showSearchCharacters(data)
             }
         })
     }
@@ -208,7 +208,7 @@ client.connect(err => {
                 const loader = document.getElementById("loader")
                 loader.remove();
 
-                showAllPlayers(data);
+                showAllCharacters(data);
             }
         })
     }

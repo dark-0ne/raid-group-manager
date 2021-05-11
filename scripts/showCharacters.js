@@ -1,4 +1,4 @@
-function showAllPlayers(characters) {
+function showAllCharacters(characters) {
     // Remove previous container if exists
     const prevContainer = document.getElementById("main-container")
     if (prevContainer) prevContainer.remove()
@@ -34,23 +34,23 @@ function showAllPlayers(characters) {
     coverContainer.appendChild(mainContainer)
 
     let counter = 1
-    for (player of characters) {
+    for (character of characters) {
         const row = document.createElement("div")
         row.classList.add("row", "align-items-center", "border", "rounded", "bg-light", "py-1", "my-1", "character-row", "justify-content-center")
         mainContainer.appendChild(row)
 
-        const player_counter = document.createElement("div")
-        player_counter.classList.add("col-1")
-        player_counter.textContent = counter++
-        player_counter.classList.add("player-counter")
-        row.appendChild(player_counter)
+        const character_counter = document.createElement("div")
+        character_counter.classList.add("col-1")
+        character_counter.textContent = counter++
+        character_counter.classList.add("character-counter")
+        row.appendChild(character_counter)
 
         const class_div = document.createElement("div")
         class_div.classList.add("col-1")
         const class_icon = document.createElement("img")
         class_icon.setAttribute("width", 40)
         class_icon.setAttribute("height", 40)
-        switch (player.character_class) {
+        switch (character.character_class) {
             case "Warrior":
                 class_icon.setAttribute("src", "media/images/01-Warrior.png")
                 row.classList.add("warrior-row")
@@ -99,7 +99,7 @@ function showAllPlayers(characters) {
         guildRankDiv.classList.add("col-1")
         const guildRankPill = document.createElement("span")
         guildRankPill.classList.add("badge")
-        switch (player.guild_rank) {
+        switch (character.guild_rank) {
             case "Raid Leader":
                 guildRankPill.classList.add("badge-raid-leader")
                 break;
@@ -113,27 +113,27 @@ function showAllPlayers(characters) {
                 guildRankPill.classList.add("badge-initiate")
                 break;
         }
-        guildRankPill.textContent = player.guild_rank
+        guildRankPill.textContent = character.guild_rank
         guildRankDiv.appendChild(guildRankPill)
         row.appendChild(guildRankDiv)
 
         const discord_name = document.createElement("div")
         discord_name.classList.add("col-2")
         discord_name.style.textAlign = "center";
-        discord_name.textContent = player.discord_name
+        discord_name.textContent = character.discord_name
         row.appendChild(discord_name)
 
-        player.character_name = player.character_name.replace(/\W/g, "")
+        character.character_name = character.character_name.replace(/\W/g, "")
         const character_name = document.createElement("div")
         character_name.classList.add("col-2")
         character_name.style.textAlign = "center";
-        character_name.textContent = player.character_name
+        character_name.textContent = character.character_name
         row.appendChild(character_name)
 
         const info = document.createElement("div")
         info.classList.add("col-3")
         info.style.textAlign = "center";
-        info.textContent = player.info
+        info.textContent = character.info
         row.appendChild(info)
 
         const altBtnDiv = document.createElement("div")
@@ -144,19 +144,19 @@ function showAllPlayers(characters) {
         altBtnDiv.appendChild(altBtn)
         row.appendChild(altBtnDiv)
 
-        if (player.alts) {
+        if (character.alts) {
             altBtn.classList.remove("d-none")
             altBtn.setAttribute("data-bs-toggle", "collapse")
-            altBtn.setAttribute("data-bs-target", "#" + player.character_name + "-alts-collapse")
+            altBtn.setAttribute("data-bs-target", "#" + character.character_name + "-alts-collapse")
             altBtn.setAttribute("aria-expanded", "false")
-            altBtn.setAttribute("aria-controls", "#" + player.character_name + "-alts-collapse")
+            altBtn.setAttribute("aria-controls", "#" + character.character_name + "-alts-collapse")
 
             const altsCollapse = document.createElement("div")
             altsCollapse.classList.add("collapse", "container", "border", "rounded", "mx-1", "bg-light")
-            altsCollapse.id = player.character_name + "-alts-collapse"
+            altsCollapse.id = character.character_name + "-alts-collapse"
 
 
-            for (alt of player.alts) {
+            for (alt of character.alts) {
 
                 const altRow = document.createElement("div")
                 altRow.classList.add("row", "align-items-center", "border-bottom", "border-top", "justify-items-end", "py-1", "my-1", "mx-1", "alt-row")
@@ -258,14 +258,14 @@ function showAllPlayers(characters) {
         const armory_button = document.createElement("button")
         armory_button.classList.add("btn", "btn-primary", "btn-sm")
         armory_button.textContent = "Armory"
-        armory_button.setAttribute('onclick', "ipcRenderer.invoke('open-armory','" + player.armory_link + "')")
+        armory_button.setAttribute('onclick', "ipcRenderer.invoke('open-armory','" + character.armory_link + "')")
         armory_div.appendChild(armory_button)
         row.appendChild(armory_div)
 
     }
 }
 
-function showSearchPlayers(characters) {
+function showSearchCharacters(characters) {
 
     // Remove previous container if exists
     const prevContainer = document.getElementById("main-container")
@@ -302,23 +302,23 @@ function showSearchPlayers(characters) {
     coverContainer.appendChild(mainContainer)
 
     let counter = 1
-    for (player of characters) {
+    for (character of characters) {
         const row = document.createElement("div")
         row.classList.add("row", "align-items-center", "border", "rounded", "bg-light", "py-1", "my-1", "character-row")
         mainContainer.appendChild(row)
 
-        const player_counter = document.createElement("div")
-        player_counter.classList.add("col-1")
-        player_counter.textContent = counter++
-        player_counter.classList.add("player-counter")
-        row.appendChild(player_counter)
+        const character_counter = document.createElement("div")
+        character_counter.classList.add("col-1")
+        character_counter.textContent = counter++
+        character_counter.classList.add("character-counter")
+        row.appendChild(character_counter)
 
         const class_div = document.createElement("div")
         class_div.classList.add("col-1")
         const class_icon = document.createElement("img")
         class_icon.setAttribute("width", 40)
         class_icon.setAttribute("height", 40)
-        switch (player.character_class) {
+        switch (character.character_class) {
             case "Warrior":
                 class_icon.setAttribute("src", "media/images/01-Warrior.png")
                 row.classList.add("warrior-row")
@@ -367,7 +367,7 @@ function showSearchPlayers(characters) {
         guildRankDiv.classList.add("col-1")
         const guildRankPill = document.createElement("span")
         guildRankPill.classList.add("badge")
-        switch (player.guild_rank) {
+        switch (character.guild_rank) {
             case "Raid Leader":
                 guildRankPill.classList.add("badge-raid-leader")
                 break;
@@ -381,35 +381,35 @@ function showSearchPlayers(characters) {
                 guildRankPill.classList.add("badge-initiate")
                 break;
         }
-        guildRankPill.textContent = player.guild_rank
+        guildRankPill.textContent = character.guild_rank
         guildRankDiv.appendChild(guildRankPill)
         row.appendChild(guildRankDiv)
 
         const discord_name = document.createElement("div")
         discord_name.classList.add("col-2")
         discord_name.style.textAlign = "center"
-        discord_name.textContent = player.discord_name
+        discord_name.textContent = character.discord_name
         row.appendChild(discord_name)
 
-        player.character_name = player.character_name.replace(/\W/g, "")
+        character.character_name = character.character_name.replace(/\W/g, "")
         const character_name = document.createElement("div")
         character_name.classList.add("col-2")
         character_name.style.textAlign = "center"
-        character_name.textContent = player.character_name
+        character_name.textContent = character.character_name
         row.appendChild(character_name)
 
         const info = document.createElement("div")
         info.classList.add("col-3")
         info.style.textAlign = "center"
-        info.textContent = player.info
+        info.textContent = character.info
         row.appendChild(info)
 
         const altStatusDiv = document.createElement("div")
         altStatusDiv.classList.add("col-1")
         altStatusDiv.classList.add("btn", "btn-sm", "pill-rounded", "px-3")
-        if (player.main === "Main") altStatusDiv.classList.add("btn-success")
+        if (character.main === "Main") altStatusDiv.classList.add("btn-success")
         else altStatusDiv.classList.add("btn-warning")
-        altStatusDiv.textContent = player.main
+        altStatusDiv.textContent = character.main
         row.appendChild(altStatusDiv)
 
         const armory_div = document.createElement("div")
@@ -417,14 +417,14 @@ function showSearchPlayers(characters) {
         const armory_button = document.createElement("button")
         armory_button.classList.add("btn", "btn-primary", "btn-sm")
         armory_button.textContent = "Armory"
-        armory_button.setAttribute('onclick', "ipcRenderer.invoke('open-armory','" + player.armory_link + "')")
+        armory_button.setAttribute('onclick', "ipcRenderer.invoke('open-armory','" + character.armory_link + "')")
         armory_div.appendChild(armory_button)
         row.appendChild(armory_div)
 
     }
 }
 
-function showAddPlayers(players) {
+function showAddCharacters(characters) {
 
     const prevContainer = document.getElementById("main-container")
     if (prevContainer) prevContainer.remove()
@@ -436,7 +436,7 @@ function showAddPlayers(players) {
     mainContainer.classList.add("animate-bottom")
     document.body.appendChild(mainContainer)
 
-    if (players.length === 0) {
+    if (characters.length === 0) {
         const coverContainer = document.getElementById("cover-container")
         const emptyDiv = document.createElement("main")
         emptyDiv.classList.add("animate-bottom")
@@ -454,10 +454,10 @@ function showAddPlayers(players) {
     }
 
     let counter = 0
-    currentPlayers = []
+    currentCharacters = []
 
-    for (player of players) {
-        currentPlayers.push(player)
+    for (character of characters) {
+        currentCharacters.push(character)
         const row = document.createElement("div")
         row.classList.add("row", "align-items-center", "border", "rounded", "bg-light", "py-1", "my-1", "character-row")
         mainContainer.appendChild(row)
@@ -467,7 +467,7 @@ function showAddPlayers(players) {
         const class_icon = document.createElement("img")
         class_icon.setAttribute("width", 40)
         class_icon.setAttribute("height", 40)
-        switch (player.character_class) {
+        switch (character.character_class) {
             case "Warrior":
                 class_icon.setAttribute("src", "media/images/01-Warrior.png")
                 row.classList.add("warrior-row")
@@ -516,7 +516,7 @@ function showAddPlayers(players) {
         guildRankDiv.classList.add("col-2")
         const guildRankPill = document.createElement("span")
         guildRankPill.classList.add("badge")
-        switch (player.guild_rank) {
+        switch (character.guild_rank) {
             case "Raid Leader":
                 guildRankPill.classList.add("badge-raid-leader")
                 break;
@@ -530,21 +530,21 @@ function showAddPlayers(players) {
                 guildRankPill.classList.add("badge-initiate")
                 break;
         }
-        guildRankPill.textContent = player.guild_rank
+        guildRankPill.textContent = character.guild_rank
         guildRankDiv.appendChild(guildRankPill)
         row.appendChild(guildRankDiv)
 
-        player.character_name = player.character_name.replace(/\W/g, "")
+        character.character_name = character.character_name.replace(/\W/g, "")
         const character_name = document.createElement("div")
         character_name.classList.add("col-2")
         character_name.style.textAlign = "center"
-        character_name.textContent = player.character_name
+        character_name.textContent = character.character_name
         row.appendChild(character_name)
 
         const info = document.createElement("div")
         info.classList.add("col-4")
         info.style.textAlign = "center"
-        info.textContent = player.info
+        info.textContent = character.info
         row.appendChild(info)
 
         const buttonDiv = document.createElement("div")
@@ -555,15 +555,15 @@ function showAddPlayers(players) {
 
         const tankButton = document.createElement("input")
         tankButton.setAttribute("type", "radio")
-        tankButton.setAttribute("name", player.character_name + "-radio")
+        tankButton.setAttribute("name", character.character_name + "-radio")
         tankButton.setAttribute("value", "tank")
         tankButton.setAttribute("autocomplete", "off")
-        tankButton.setAttribute("onclick", "handleRole(currentPlayers[" + (counter) + "],'tank')")
+        tankButton.setAttribute("onclick", "handleRole(currentCharacters[" + (counter) + "],'tank')")
         tankButton.classList.add("btn-check")
-        tankButton.id = player.character_name + "-radio-tank"
+        tankButton.id = character.character_name + "-radio-tank"
         const tankLabel = document.createElement("label")
         tankLabel.classList.add("btn", "btn-outline-primary")
-        tankLabel.setAttribute("for", player.character_name + "-radio-tank")
+        tankLabel.setAttribute("for", character.character_name + "-radio-tank")
         tankLabel.setAttribute("data-bs-toggle", "tooltip")
         tankLabel.setAttribute("data-bs-placement", "top")
         tankLabel.setAttribute("title", "Add as Tank")
@@ -574,15 +574,15 @@ function showAddPlayers(players) {
 
         const healerButton = document.createElement("input")
         healerButton.setAttribute("type", "radio")
-        healerButton.setAttribute("name", player.character_name + "-radio")
+        healerButton.setAttribute("name", character.character_name + "-radio")
         healerButton.setAttribute("value", "healer")
         healerButton.setAttribute("autocomplete", "off")
-        healerButton.setAttribute("onclick", "handleRole(currentPlayers[" + (counter) + "],'healer')")
+        healerButton.setAttribute("onclick", "handleRole(currentCharacters[" + (counter) + "],'healer')")
         healerButton.classList.add("btn-check")
-        healerButton.id = player.character_name + "-radio-healer"
+        healerButton.id = character.character_name + "-radio-healer"
         const healerLabel = document.createElement("label")
         healerLabel.classList.add("btn", "btn-outline-primary")
-        healerLabel.setAttribute("for", player.character_name + "-radio-healer")
+        healerLabel.setAttribute("for", character.character_name + "-radio-healer")
         healerLabel.setAttribute("data-bs-toggle", "tooltip")
         healerLabel.setAttribute("data-bs-placement", "top")
         healerLabel.setAttribute("title", "Add as Healer")
@@ -593,15 +593,15 @@ function showAddPlayers(players) {
 
         const dpsButton = document.createElement("input")
         dpsButton.setAttribute("type", "radio")
-        dpsButton.setAttribute("name", player.character_name + "-radio")
+        dpsButton.setAttribute("name", character.character_name + "-radio")
         dpsButton.setAttribute("value", "dps")
         dpsButton.setAttribute("autocomplete", "off")
-        dpsButton.setAttribute("onclick", "handleRole(currentPlayers[" + (counter) + "],'dps')")
+        dpsButton.setAttribute("onclick", "handleRole(currentCharacters[" + (counter) + "],'dps')")
         dpsButton.classList.add("btn-check")
-        dpsButton.id = player.character_name + "-radio-dps"
+        dpsButton.id = character.character_name + "-radio-dps"
         const dpsLabel = document.createElement("label")
         dpsLabel.classList.add("btn", "btn-outline-primary")
-        dpsLabel.setAttribute("for", player.character_name + "-radio-dps")
+        dpsLabel.setAttribute("for", character.character_name + "-radio-dps")
         dpsLabel.setAttribute("data-bs-toggle", "tooltip")
         dpsLabel.setAttribute("data-bs-placement", "top")
         dpsLabel.setAttribute("title", "Add as DPS")
@@ -612,22 +612,22 @@ function showAddPlayers(players) {
 
         const noneButton = document.createElement("input")
         noneButton.setAttribute("type", "radio")
-        noneButton.setAttribute("name", player.character_name + "-radio")
+        noneButton.setAttribute("name", character.character_name + "-radio")
         noneButton.setAttribute("value", "none")
         noneButton.setAttribute("autocomplete", "off")
-        noneButton.setAttribute("onclick", "handleRole(currentPlayers[" + (counter) + "],'none')")
+        noneButton.setAttribute("onclick", "handleRole(currentCharacters[" + (counter) + "],'none')")
         noneButton.classList.add("btn-check")
-        noneButton.id = player.character_name + "-radio-none"
+        noneButton.id = character.character_name + "-radio-none"
         const noneLabel = document.createElement("label")
         noneLabel.classList.add("btn", "btn-outline-primary")
-        noneLabel.setAttribute("for", player.character_name + "-radio-none")
+        noneLabel.setAttribute("for", character.character_name + "-radio-none")
         noneLabel.setAttribute("data-bs-toggle", "tooltip")
         noneLabel.setAttribute("data-bs-placement", "top")
         noneLabel.setAttribute("title", "Do not add")
 
-        if (tanks.has(player.character_name)) tankButton.checked = true
-        else if (healers.has(player.character_name)) healerButton.checked = true
-        else if (dps.has(player.character_name)) dpsButton.checked = true
+        if (tanks.has(character.character_name)) tankButton.checked = true
+        else if (healers.has(character.character_name)) healerButton.checked = true
+        else if (dps.has(character.character_name)) dpsButton.checked = true
         else noneButton.checked = true
 
         const noneIcon = document.createElement("i")
@@ -654,6 +654,6 @@ function showAddPlayers(players) {
 }
 
 
-exports.showAllPlayers = showAllPlayers
-exports.showSearchPlayers = showSearchPlayers
-exports.showAddPlayers = showAddPlayers
+exports.showAllCharacters = showAllCharacters
+exports.showSearchCharacters = showSearchCharacters
+exports.showAddCharacters = showAddCharacters
