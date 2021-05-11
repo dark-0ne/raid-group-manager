@@ -10,10 +10,7 @@ const {
     ipcRenderer
 } = require('electron')
 
-const password = fs.readFileSync("credentials", "utf-8")
-
-const uri = "mongodb+srv://rgm-electron-app:" + password + "@cluster0.o0xx5.mongodb.net/raid-group-manager?retryWrites=true&w=majority";
-const client = new MongoClient(uri, {
+const client = new MongoClient(process.env.RGM_DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -136,7 +133,7 @@ function handleSearch(e) {
     const regexString = new RegExp(".*" + searchString + ".*", "i")
 
     if (searchString === "" && classQuery.length === 0 && rankQuery.length === 0) {
-        const player_col = client.db("raid-group-manager").collection("players");
+        const player_col = client.db(process.env.RGM_DB_NAME).collection("players");
         player_col.find({}).collation({
             'locale': 'en'
         }).sort({
@@ -171,7 +168,7 @@ function handleSearch(e) {
             })
         }
 
-        const character_col = client.db("raid-group-manager").collection("characters");
+        const character_col = client.db(process.env.RGM_DB_NAME).collection("characters");
         character_col.find(query).collation({
             'locale': 'en'
         }).sort({
@@ -193,7 +190,7 @@ client.connect(err => {
         ipcRenderer.invoke('show-login')
     } else {
 
-        const player_col = client.db("raid-group-manager").collection("players");
+        const player_col = client.db(process.env.RGM_DB_NAME).collection("players");
         player_col.find({}).collation({
             'locale': 'en'
         }).sort({

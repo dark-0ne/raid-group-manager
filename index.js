@@ -5,9 +5,13 @@ const {
 } = require('electron')
 
 const fs = require("fs")
+
+require('dotenv').config()
+
 const {
   ipcMain
 } = require('electron')
+
 const {
   exception
 } = require('console')
@@ -68,7 +72,7 @@ const loginMenuTemplate = [{
   label: ""
 }]
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV === "development") {
   mainMenuTemplate.push({
     label: "Developer Tools",
     submenu: [{
@@ -101,7 +105,7 @@ if (process.env.NODE_ENV !== "production") {
 
 
 app.whenReady().then(() => {
-  if (!fs.existsSync("credentials")) {
+  if (process.env.NODE_ENV !== "development" && process.env.PROD_DB_PASSWORD == undefined) {
     createLoginWindow()
   } else {
     createMainWindow()
@@ -184,7 +188,7 @@ ipcMain.handle("discard-confirmed", (event, address) => {
   mainWindow.loadFile(address)
 })
 
-ipcMain.handle('create-add-to-raid-window', async (event,payload) => {
+ipcMain.handle('create-add-to-raid-window', async (event, payload) => {
   try {
     raidWindow.focus()
   } catch (err) {
@@ -211,7 +215,7 @@ ipcMain.handle('create-add-to-raid-window', async (event,payload) => {
     raidWindow.setMenu(mainMenu);
     raidWindow.setResizable(false)
     await sleep(300)
-    raidWindow.webContents.send('current-chars-in-raid',payload);
+    raidWindow.webContents.send('current-chars-in-raid', payload);
 
   }
 })
@@ -223,3 +227,16 @@ ipcMain.handle('add-char-to-raid', (event, payload) => {
 ipcMain.handle('exit-app', (event) => {
   app.quit()
 })
+
+
+if (process.env.NODE_ENV === "development") {
+  const password = process.env.DEV_DB_PASSWORD
+  const uri = "mongodb+srv://rgm-app-dev:" + password + "@cluster0.o0xx5.mongodb.net/rgm-dev?retryWrites=true&w=majority"
+  process.env.RGM_DB_URI = uri
+  process.env.RGM_DB_NAME = "rgm-dev"
+} else if (process.env.NODE_ENV === "production") {
+  const password = process.env.PROD_DB_PASSWORD
+  const uri = "mongodb+srv://rgm-app-prod:" + password + "@cluster0.o0xx5.mongodb.net/raid-prod?retryWrites=true&w=majority"
+  process.env.RGM_DB_URI = uri
+  process.env.RGM_DB_NAME = "rgm-prod"
+}

@@ -1,20 +1,17 @@
-function showAllPlayers(players) {
-
+function showAllPlayers(characters) {
     // Remove previous container if exists
     const prevContainer = document.getElementById("main-container")
     if (prevContainer) prevContainer.remove()
 
-    // Create grid
-    const mainContainer = document.createElement("div")
-    mainContainer.id = "main-container"
-    mainContainer.classList.add("container")
-    mainContainer.classList.add("animate-bottom")
-    document.body.appendChild(mainContainer)
+    const prevFooter = document.getElementById("empty-footer")
+    if (prevFooter) prevFooter.remove()
 
-    if (players.length === 0) {
-        const coverContainer = document.getElementById("cover-container")
+    const coverContainer = document.getElementById("cover-container")
+
+    if (characters.length === 0) {
         const emptyDiv = document.createElement("main")
-        emptyDiv.classList.add("animate-bottom")
+        emptyDiv.classList.add("animate-bottom", "mt-auto")
+        emptyDiv.id = "main-container"
 
         const emptyHeader = document.createElement("h2")
         emptyHeader.textContent = "No characters to show"
@@ -24,12 +21,20 @@ function showAllPlayers(players) {
 
         const footer = document.createElement("footer")
         footer.classList.add("mt-auto")
+        footer.id = "empty-footer"
         coverContainer.appendChild(footer)
         return
     }
 
+    // Create grid
+    const mainContainer = document.createElement("div")
+    mainContainer.id = "main-container"
+    mainContainer.classList.add("container")
+    mainContainer.classList.add("animate-bottom")
+    coverContainer.appendChild(mainContainer)
+
     let counter = 1
-    for (player of players) {
+    for (player of characters) {
         const row = document.createElement("div")
         row.classList.add("row", "align-items-center", "border", "rounded", "bg-light", "py-1", "my-1", "character-row", "justify-content-center")
         mainContainer.appendChild(row)
@@ -260,22 +265,21 @@ function showAllPlayers(players) {
     }
 }
 
-function showSearchPlayers(players) {
+function showSearchPlayers(characters) {
 
+    // Remove previous container if exists
     const prevContainer = document.getElementById("main-container")
     if (prevContainer) prevContainer.remove()
 
-    // Create grid
-    const mainContainer = document.createElement("div")
-    mainContainer.id = "main-container"
-    mainContainer.classList.add("container")
-    mainContainer.classList.add("animate-bottom")
-    document.body.appendChild(mainContainer)
+    const prevFooter = document.getElementById("empty-footer")
+    if (prevFooter) prevFooter.remove()
 
-    if (players.length === 0) {
-        const coverContainer = document.getElementById("cover-container")
+    const coverContainer = document.getElementById("cover-container")
+
+    if (characters.length === 0) {
         const emptyDiv = document.createElement("main")
-        emptyDiv.classList.add("animate-bottom")
+        emptyDiv.classList.add("animate-bottom", "mt-auto")
+        emptyDiv.id = "main-container"
 
         const emptyHeader = document.createElement("h2")
         emptyHeader.textContent = "No characters to show"
@@ -285,12 +289,20 @@ function showSearchPlayers(players) {
 
         const footer = document.createElement("footer")
         footer.classList.add("mt-auto")
+        footer.id = "empty-footer"
         coverContainer.appendChild(footer)
         return
     }
 
+    // Create grid
+    const mainContainer = document.createElement("div")
+    mainContainer.id = "main-container"
+    mainContainer.classList.add("container")
+    mainContainer.classList.add("animate-bottom")
+    coverContainer.appendChild(mainContainer)
+
     let counter = 1
-    for (player of players) {
+    for (player of characters) {
         const row = document.createElement("div")
         row.classList.add("row", "align-items-center", "border", "rounded", "bg-light", "py-1", "my-1", "character-row")
         mainContainer.appendChild(row)

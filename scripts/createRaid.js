@@ -6,10 +6,7 @@ const {
     ipcRenderer
 } = require('electron')
 
-const password = fs.readFileSync("credentials", "utf-8")
-
-const uri = "mongodb+srv://rgm-electron-app:" + password + "@cluster0.o0xx5.mongodb.net/raid-group-manager?retryWrites=true&w=majority";
-const client = new MongoClient(uri, {
+const client = new MongoClient(process.env.RGM_DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -278,8 +275,6 @@ function saveRaid() {
         dps: raidDps
     }
 
-    console.log(raid)
-
     document.getElementById("save-loader").classList.remove("d-none")
     document.getElementById("save-result").classList.add("d-none")
     document.getElementById("save-btn").disabled = true
@@ -287,7 +282,7 @@ function saveRaid() {
         if (err) {
             ipcRenderer.invoke('show-login')
         } else {
-            const raid_col = client.db("raid-group-manager").collection("raids");
+            const raid_col = client.db(process.env.RGM_DB_NAME).collection("raids");
             try {
                 const result = await raid_col.insertOne(raid);
                 document.getElementById("save-loader").classList.add("d-none")

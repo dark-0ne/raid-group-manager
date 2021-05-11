@@ -10,19 +10,17 @@ const {
     ipcRenderer
 } = require('electron')
 
-const password = fs.readFileSync("credentials", "utf-8")
-
-const uri = "mongodb+srv://rgm-electron-app:" + password + "@cluster0.o0xx5.mongodb.net/raid-group-manager?retryWrites=true&w=majority";
-const client = new MongoClient(uri, {
+const client = new MongoClient(process.env.RGM_DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 
 client.connect(err => {
     if (err) {
-        ipcRenderer.invoke('show-login')
+        console.log(err)
+        //ipcRenderer.invoke('show-login')
     } else {
-        const raid_col = client.db("raid-group-manager").collection("raids");
+        const raid_col = client.db(process.env.RGM_DB_NAME).collection("raids");
         raid_col.find({}).collation({
             'locale': 'en'
         }).toArray((err, data) => {
@@ -48,7 +46,7 @@ function deleteRaid(raidID) {
         if (err) {
             ipcRenderer.invoke('show-login')
         } else {
-            const raid_col = client.db("raid-group-manager").collection("raids");
+            const raid_col = client.db(process.env.RGM_DB_NAME).collection("raids");
             raid_col.deleteOne({
                 _id: new ObjectID(raidID)
             }, (err) => {
