@@ -117,11 +117,11 @@ function showAllCharacters(characters) {
         guildRankDiv.appendChild(guildRankPill)
         row.appendChild(guildRankDiv)
 
-        const discord_name = document.createElement("div")
-        discord_name.classList.add("col-2")
-        discord_name.style.textAlign = "center";
-        discord_name.textContent = character.discord_name
-        row.appendChild(discord_name)
+        const player_name = document.createElement("div")
+        player_name.classList.add("col-2")
+        player_name.style.textAlign = "center";
+        player_name.textContent = character.player_name
+        row.appendChild(player_name)
 
         character.character_name = character.character_name.replace(/\W/g, "")
         const character_name = document.createElement("div")
@@ -385,11 +385,11 @@ function showSearchCharacters(characters) {
         guildRankDiv.appendChild(guildRankPill)
         row.appendChild(guildRankDiv)
 
-        const discord_name = document.createElement("div")
-        discord_name.classList.add("col-2")
-        discord_name.style.textAlign = "center"
-        discord_name.textContent = character.discord_name
-        row.appendChild(discord_name)
+        const player_name = document.createElement("div")
+        player_name.classList.add("col-2")
+        player_name.style.textAlign = "center"
+        player_name.textContent = character.player_name
+        row.appendChild(player_name)
 
         character.character_name = character.character_name.replace(/\W/g, "")
         const character_name = document.createElement("div")

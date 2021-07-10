@@ -2,9 +2,8 @@ const MongoClient = require('mongodb').MongoClient;
 const fs = require("fs")
 
 const {
-    showAllCharacters,
-    showSearchCharacters
-} = require("./scripts/showCharacters")
+    showPlayers,
+} = require("./scripts/showPlayers")
 
 const {
     ipcRenderer
@@ -133,23 +132,23 @@ function handleSearch(e) {
     const regexString = new RegExp(".*" + searchString + ".*", "i")
 
     if (searchString === "" && classQuery.length === 0 && rankQuery.length === 0) {
-        const character_col = client.db(process.env.RGM_DB_NAME).collection("characters");
-        character_col.find({}).collation({
+        const player_col = client.db(process.env.RGM_DB_NAME).collection("players");
+        player_col.find({}).collation({
             'locale': 'en'
         }).sort({
-            "discord_name": 1
+            "player_name": 1
         }).toArray((err, data) => {
             if (err) {
                 console.log(err)
             } else {
-                showAllCharacters(data);
+                showPlayers(data);
             }
         })
     } else {
         let query = {
             "$and": [{
                 "$or": [{
-                    "discord_name": regexString
+                    "player_name": regexString
                 }, {
                     "character_name": regexString
                 }]
@@ -167,34 +166,20 @@ function handleSearch(e) {
                 "$or": rankQuery
             })
         }
-
-        const character_col = client.db(process.env.RGM_DB_NAME).collection("characters");
-        character_col.find(query).collation({
-            'locale': 'en'
-        }).sort({
-            "discord_name": 1,
-            "main": -1
-        }).toArray((err, data) => {
-            if (err) {
-                console.log(err)
-            } else {
-                showSearchCharacters(data)
-            }
-        })
     }
     searchLoader.classList.add("d-none")
 }
 
 client.connect(err => {
     if (err) {
-        ipcRenderer.invoke('show-login')
+        console.log(err)
     } else {
 
-        const character_col = client.db(process.env.RGM_DB_NAME).collection("characters");
-        character_col.find({}).collation({
+        const player_col = client.db(process.env.RGM_DB_NAME).collection("players");
+        player_col.find({}).collation({
             'locale': 'en'
         }).sort({
-            "discord_name": 1
+            "player_name": 1
         }).toArray((err, data) => {
             if (err) {
                 console.log(err)
@@ -208,7 +193,7 @@ client.connect(err => {
                 const loader = document.getElementById("loader")
                 loader.remove();
 
-                showAllCharacters(data);
+                showPlayers(data);
             }
         })
     }
