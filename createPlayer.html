@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Raid Manager</title>
+    <meta http-equiv="Content-Security-Policy"
+        content="script-src 'self' 'unsafe-inline' https://kit.fontawesome.com/97b502b1b3.js" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/createRaid.css">
+    <script src="https://kit.fontawesome.com/97b502b1b3.js" crossorigin="anonymous"></script>
+    <script src="scripts/bootstrap/bootstrap.bundle.min.js"></script>
+    <script defer src="scripts/createRaid.js"></script>
+</head>
+
+<body class="d-flex bg-light h-100">
+    <div class="cover-container d-flex w-100 h-100 flex-column mx-auto" id="cover-container">
+        <header class="mb-3">
+            <div class="border-bottom sticky-top rounded py-2 px-4" id="search-navbar">
+                <div class="container">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-9 pt-3">
+                            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#" onclick="returnToHome()">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="#" onclick="returnToPlayers()">Players</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-id"></li>
+                                </ol>
+                            </nav>
+                        </div>
+                        <div class="col-1 py-auto">
+                            <button class="btn btn-secondary" onclick="returnToPlayers()">Discard</button>
+                        </div>
+                        <div class="col-1 py-auto">
+                            <button class="btn btn-success" onclick="savePlayer()" id="save-btn">Save</button>
+                        </div>
+                        <div class="col-1 py-auto">
+                            <div class="spinner-border text-primary d-none mx-2" role="status" id="save-loader">
+                                <span cLass="visually-hidden">Loading...</span>
+                            </div>
+                            <div class="d-none mx-2" role="status" id="save-result"
+                                style="font-weight: 900; color: green;">
+                                <i class="fas fa-check fa-lg" id="result-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="container animate-bottom">
+                <div class="row justify-content-start my-2">
+                    <div class="col-1">
+                        <label for="player-id" class="col-form-label">ID: </label>
+                    </div>
+                    <div class="col-2">
+                        <input type="text" id="player-id" class="form-control" readonly>
+                    </div>
+                    <div class="col-1">
+                        <label for="player-name" class="col-form-label">Name: </label>
+                    </div>
+                    <div class="col-3">
+                        <input type="text" id="player-name" class="form-control">
+                    </div>
+                    <div class="col-2">
+                        <label for="player-rank" class="col-form-label">Guild Rank: </label>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-select" aria-label="Guild Rank">
+                            <option value="Initiate" selected>Initiate</option>
+                            <option value="Raider">Raider</option>
+                            <option value="CoreRaider">Core Raider</option>
+                            <option value="Officer">Officer</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row justify-content-start my-2">
+                    <div class="col-1">
+                        <label for="current-dkp" class="col-form-label">Current DKP: </label>
+                    </div>
+                    <div class="col-2">
+                        <input type="number" value='0' min='0' id="current-dkp" class="form-control">
+                    </div>
+                    <div class="col-1">
+                        <label for="total-dkp" class="col-form-label">Total DKP: </label>
+                    </div>
+                    <div class="col-2">
+                        <input type="number" value='0' min='0' id="total-dkp" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
